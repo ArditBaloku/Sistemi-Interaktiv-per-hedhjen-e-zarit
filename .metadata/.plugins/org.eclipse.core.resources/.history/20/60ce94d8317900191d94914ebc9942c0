@@ -1,0 +1,12 @@
+package Projekti;
+
+import javafx.event.EventHandler;
+import javafx.event.ActionEvent;
+
+class SignButton implements EventHandler<ActionEvent>
+{
+	public void handle(ActionEvent e)
+	{
+		validate.textFieldNotEmpty(FirstNameTextField,FirstName, "Shëno emrin";
+	}
+}

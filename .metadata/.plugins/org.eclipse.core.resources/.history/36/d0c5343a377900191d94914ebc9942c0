@@ -1,0 +1,15 @@
+package Projekti;
+
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+
+class SignInEvent implements EventHandler<ActionEvent>
+{
+	FormValidation validate = new FormValidation();
+	public void handle(ActionEvent e)
+	{
+		validate.textFieldNotEmpty(SignInForm.FirstNameTextField, SignInForm.FirstName, "Shëno emrin!");
+		validate.textFieldNotEmpty(SignInForm.LastNameTextField, SignInForm.LastName, "Shëno mbiemrin!");
+		validate.textFieldNotEmpty(SignInForm.EmailTextField, SignInForm.Email, "Shëno emrin!");
+	}
+}

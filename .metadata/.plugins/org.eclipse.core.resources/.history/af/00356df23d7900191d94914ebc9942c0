@@ -1,0 +1,41 @@
+package Projekti;
+
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
+
+public class FormValidation 
+{
+	public static boolean textFieldNotEmpty(TextField t)
+	{
+		boolean b = false;
+		if(t.getText()!=null && !t.getText().isEmpty())
+		{
+			b=true;
+		}
+		return b;
+	}
+	public static boolean textFieldNotEmpty(TextField t, Label l, String sValidationText)
+	{
+		boolean b = true;
+		String c = null;
+		if(!textFieldNotEmpty(t))
+		{
+			b=false;
+			c=sValidationText;
+			t.setStyle("-fx-background:red;");
+			t.setText(c);
+		}
+		return b;
+	}
+	public static boolean email(TextField t)
+	{
+		boolean b = true;
+		String c = null;
+		/*if(!textFieldNotEmpty(t)|| t != "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Z0-9.-]+\\.[A-Z]{2,}$")
+		{
+			
+		}*/
+		return b;
+	}
+}

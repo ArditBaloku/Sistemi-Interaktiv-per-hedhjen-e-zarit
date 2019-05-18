@@ -14,7 +14,7 @@ import javafx.scene.text.FontWeight;
 public class Index extends VBox
 {
 	public static Scene logInscene, signInscene;
-	private VBox index() 
+	public VBox getIndex() 
 	{
 		VBox pane = new VBox(5);
 		pane.setAlignment(Pos.CENTER);
@@ -50,9 +50,5 @@ public class Index extends VBox
 		
 		pane.getChildren().addAll(label, buttonPane);
 		return pane;
-	}
-	public VBox getIndex()
-	{
-		return index();
 	}
 }

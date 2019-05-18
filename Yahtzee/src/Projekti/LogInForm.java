@@ -15,8 +15,11 @@ import javafx.scene.text.Text;
 
 public class LogInForm extends GridPane
 {	 
-	 Index index = new Index();
-	 private GridPane LogIn()
+	public static Label Email = new Label("Email:");
+	public static TextField EmailTextField = new TextField();
+	public static Label Password = new Label("Password:");
+	public static PasswordField PasswordTextField = new PasswordField();
+	 public GridPane getLogIn()
 	    {
 	    	GridPane pane = new GridPane();
 			pane.setAlignment(Pos.CENTER);
@@ -26,21 +29,18 @@ public class LogInForm extends GridPane
 			pane.setStyle("-fx-background-color:linear-gradient(pink, lightblue); ");
 			
 			Button backbtn = new Button("<-");
-			backbtn.setOnAction(e->(Main.window).setScene(Main.indexscene));
+			backbtn.setOnAction(e->{cleanForm();
+				(Main.window).setScene(Main.indexscene);});
 			
 			Text FormName = new Text("Welcome");
 			FormName.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.ITALIC, 20));
-			Label UserName = new Label("User Name:");
-			TextField UserNameTextField = new TextField();
-			Label Password = new Label("Password:");
-			PasswordField PasswordTextField = new PasswordField();
 			
 			HBox title = new HBox(100);
 			title.getChildren().addAll(FormName,backbtn);
 			
 			pane.add(title, 0, 0, 2, 1);
-			pane.add(UserName, 0, 1);
-			pane.add(UserNameTextField, 1, 1);
+			pane.add(Email, 0, 1);
+			pane.add(EmailTextField, 1, 1);
 			pane.add(Password, 0, 2);
 			pane.add(PasswordTextField, 1, 2);
 
@@ -49,6 +49,8 @@ public class LogInForm extends GridPane
 					+ "-fx-font-family:'Arial'; "
 					+ "-fx-background-color: linear-gradient(lightblue, pink); "
 					+ "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
+			LogInEvent Handle = new LogInEvent();
+			LogInBtn.setOnAction(Handle);
 			HBox hbBtn = new HBox(10);
 			hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
 			hbBtn.getChildren().add(LogInBtn);
@@ -60,8 +62,11 @@ public class LogInForm extends GridPane
 			//LogInBtn.setOnAction();
 			return pane;
 	    }
-	 public GridPane getLogIn()
+	 void cleanForm()
 	 {
-		 return LogIn();
+		 EmailTextField.setText("");
+		 EmailTextField.setStyle("-fx-background:white;");
+		 PasswordTextField.setText("");
+		 PasswordTextField.setStyle("-fx-background:white;");
 	 }
 }

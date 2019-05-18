@@ -15,8 +15,15 @@ import javafx.scene.text.Text;
 
 public class SignInForm extends GridPane
 {
-	 Index index = new Index();
-	 private GridPane SignIn()
+	public static Label FirstName = new Label("Frist Name:");
+	public static TextField FirstNameTextField = new TextField();
+	public static Label LastName = new Label("Last Name:");
+	public static TextField LastNameTextField = new TextField();
+	public static Label Email = new Label("e-mail:");
+	public static TextField EmailTextField = new TextField();
+	public static Label Password = new Label("Password:");
+	public static PasswordField PasswordTextField = new PasswordField();
+	 public GridPane getSignIn()
 	    {
 			GridPane pane = new GridPane();
 			pane.setAlignment(Pos.CENTER);
@@ -26,18 +33,11 @@ public class SignInForm extends GridPane
 			pane.setStyle("-fx-background-color:linear-gradient(pink, lightblue); ");
 			
 			Button backbtn = new Button("<-");
-			backbtn.setOnAction(e->(Main.window).setScene(Main.indexscene));
+			backbtn.setOnAction(e->{cleanForm();
+									(Main.window).setScene(Main.indexscene);});
 			
 			Text FormName = new Text("Welcome");
 			FormName.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.ITALIC, 20));
-			Label FirstName = new Label("Frist Name:");
-			TextField FirstNameTextField = new TextField();
-			Label LastName = new Label("Last Name:");
-			TextField LastNameTextField = new TextField();
-			Label Email = new Label("e-mail:");
-			TextField EmailTextField = new TextField();
-			Label Password = new Label("Password:");
-			PasswordField PasswordTextField = new PasswordField();
 			
 			HBox title = new HBox(100);
 			title.getChildren().addAll(FormName,backbtn);
@@ -51,13 +51,14 @@ public class SignInForm extends GridPane
 			pane.add(EmailTextField, 1, 3);
 			pane.add(Password, 0, 4);
 			pane.add(PasswordTextField, 1, 4);
-			
 
 			Button SignInBtn = new Button("Sign In");
 			SignInBtn.setStyle("-fx-text-fill: black; "
 					+ "-fx-font-family:'Arial'; "
 					+ "-fx-background-color: linear-gradient(lightblue, pink); "
 					+ "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
+			SignInEvent Handle = new SignInEvent();
+			SignInBtn.setOnAction(Handle);
 			HBox hbBtn = new HBox(10);
 			hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
 			hbBtn.getChildren().add(SignInBtn);
@@ -66,11 +67,21 @@ public class SignInForm extends GridPane
 			final Text actionTarget = new Text();
 			pane.add(actionTarget, 1, 9);
 			
-			//SignInBtn.setOnAction();
 			return pane;
 	    }
-	 public GridPane getSignIn()
+	 void cleanForm()
 	 {
-		 return SignIn();
+		 FirstNameTextField.setText("");
+		 FirstNameTextField.setStyle("-fx-background:white;");
+		 FirstNameTextField.setPromptText("");
+		 LastNameTextField.setText("");
+		 LastNameTextField.setStyle("-fx-background:white;");
+		 LastNameTextField.setPromptText("");
+		 EmailTextField.setText("");
+		 EmailTextField.setStyle("-fx-background:white;");
+		 EmailTextField.setPromptText("");
+		 PasswordTextField.setText("");	 
+		 PasswordTextField.setStyle("-fx-background:white;");
+		 PasswordTextField.setPromptText("");
 	 }
 }
