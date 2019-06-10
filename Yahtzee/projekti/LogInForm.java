@@ -1,8 +1,13 @@
 package projekti;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -19,8 +24,12 @@ public class LogInForm extends GridPane {
 	public static TextField emailTxt = new TextField();
 	public static Label password = new Label("Password:");
 	public static PasswordField passwordTxt = new PasswordField();
+	public static Label resultLabel = new Label();
+	public static Scene gameScene;
 
 	public GridPane getLogIn() {
+		Game game = new Game();
+		gameScene = new Scene(game.getGameView(), 400, 400);
 		GridPane pane = new GridPane();
 		pane.setAlignment(Pos.CENTER);
 		pane.setPadding(new Insets(20, 20, 20, 20));
@@ -45,6 +54,7 @@ public class LogInForm extends GridPane {
 		pane.add(emailTxt, 1, 1);
 		pane.add(password, 0, 2);
 		pane.add(passwordTxt, 1, 2);
+		pane.add(resultLabel,0,4,2,1);
 
 		Button logInBtn = new Button("Log In");
 		logInBtn.setStyle("-fx-text-fill: black; " + "-fx-font-family:'Arial'; "
@@ -52,6 +62,8 @@ public class LogInForm extends GridPane {
 				+ "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
 		logInBtn.setOnAction(e -> {
 			FormValidation.emailValidate(LogInForm.emailTxt, "Shëno email-in valid!");
+			logIn();
+			cleanForm();
 		});
 
 		pane.add(logInBtn, 1, 3);
@@ -75,5 +87,32 @@ public class LogInForm extends GridPane {
 		passwordTxt.setStyle("-fx-background:white;");
 		emailTxt.setPromptText("");
 		passwordTxt.setPromptText("");
+	}
+	private void logIn() 
+	{
+		try 
+		{
+			String query = "SELECT * FROM users WHERE email = ? AND password=?";
+			
+			PreparedStatement preparedStatement = DBConnection.getConnection().prepareStatement(query);
+			preparedStatement.setString(1,  emailTxt.getText());
+			preparedStatement.setString(2,  passwordTxt.getText());
+
+			ResultSet resultSet = preparedStatement.executeQuery();			
+			if(resultSet.next()) 
+			{
+				(Main.window).setScene(gameScene);
+				(Main.window).setTitle("Yahtzee");
+			} 
+			else 
+			{
+				resultLabel.setStyle("-fx-text-fill:red");
+				resultLabel.setText("Check your data again!");
+			}
+		} 
+		catch (SQLException ex) 
+		{
+			ex.printStackTrace();
+		}
 	}
 }

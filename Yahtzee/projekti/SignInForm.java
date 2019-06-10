@@ -1,8 +1,12 @@
 package projekti;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -15,6 +19,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 public class SignInForm extends GridPane {
+	
 	public static Label FirstName = new Label("First Name:");
 	public static TextField FirstNameTextField = new TextField();
 	public static Label LastName = new Label("Last Name:");
@@ -23,8 +28,12 @@ public class SignInForm extends GridPane {
 	public static TextField EmailTextField = new TextField();
 	public static Label Password = new Label("Password:");
 	public static PasswordField PasswordTextField = new PasswordField();
+	public static Scene gameScene;
 
 	public GridPane getSignIn() {
+		
+		Game game = new Game();
+		gameScene = new Scene(game.getGameView(), 400, 400);
 		GridPane pane = new GridPane();
 		pane.setAlignment(Pos.CENTER);
 		pane.setPadding(new Insets(20));
@@ -60,9 +69,19 @@ public class SignInForm extends GridPane {
 				+ "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
 		signInBtn.setOnAction(e -> {
 			removeErrors();
-			FormValidation.textFieldNotEmpty(SignInForm.FirstNameTextField, "Shëno emrin!");
-			FormValidation.textFieldNotEmpty(SignInForm.LastNameTextField, "Shëno mbiemrin!");
-			FormValidation.emailValidate(SignInForm.EmailTextField, "Shëno email-in valid!");
+			if(valid())
+			{
+				addUser(FirstNameTextField.getText(), LastNameTextField.getText(), EmailTextField.getText(), PasswordTextField.getText());
+				cleanForm();
+				(Main.window).setScene(gameScene);
+				(Main.window).setTitle("Yahtzee");
+			}
+			else
+			{
+				FormValidation.textFieldNotEmpty(SignInForm.FirstNameTextField, "Shëno emrin!");
+				FormValidation.textFieldNotEmpty(SignInForm.LastNameTextField, "Shëno mbiemrin!");
+				FormValidation.emailValidate(SignInForm.EmailTextField, "Shëno email-in valid!");
+			}
 		});
 		
 		pane.add(signInBtn, 1, 5);
@@ -98,5 +117,26 @@ public class SignInForm extends GridPane {
 		EmailTextField.setPromptText("");
 		PasswordTextField.setStyle("-fx-background:white;");
 		PasswordTextField.setPromptText("");
+	}
+	public static boolean valid()
+	{
+		return FormValidation.emailValidate(SignInForm.EmailTextField,"Sheno email valid") && FormValidation.textFieldNotEmpty(SignInForm.FirstNameTextField) && FormValidation.textFieldNotEmpty(SignInForm.LastNameTextField) && FormValidation.textFieldNotEmpty(SignInForm.PasswordTextField);
+	}
+	public static boolean addUser(String firstName, String lastName, String email, String password) {
+		try 
+		{
+			String query = "INSERT INTO users(firstName, lastName, email, password) VALUES(?, ?, ?, ?)";
+			PreparedStatement preparedStatement = DBConnection.getConnection().prepareStatement(query);
+			preparedStatement.setString(1, firstName);
+			preparedStatement.setString(2, lastName);
+			preparedStatement.setString(3, email);
+			preparedStatement.setString(4, password);
+			
+			return (preparedStatement.executeUpdate() > 0);
+		}
+		catch(SQLException ex) {
+			ex.printStackTrace();
+			return false;
+		}
 	}
 }

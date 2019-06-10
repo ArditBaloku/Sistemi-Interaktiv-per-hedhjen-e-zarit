@@ -14,6 +14,7 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
+		DBConnection.getConnection();
 		window = primaryStage;
 
 		Index index = new Index();

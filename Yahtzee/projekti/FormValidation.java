@@ -31,6 +31,7 @@ public class FormValidation {
 		if (!textFieldNotEmpty(t) || !emailPattern.matcher(email).matches()) {
 			err = sValidationText;
 			t.setStyle("-fx-background:red;");
+			t.setText("");
 			t.setPromptText(err);
 			return false;
 		}
