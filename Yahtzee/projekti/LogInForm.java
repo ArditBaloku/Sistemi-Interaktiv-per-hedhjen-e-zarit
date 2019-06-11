@@ -101,6 +101,7 @@ public class LogInForm extends GridPane {
 			ResultSet resultSet = preparedStatement.executeQuery();			
 			if(resultSet.next()) 
 			{
+				Session.setSession(resultSet.getString(0), resultSet.getString(1), resultSet.getString(2));
 				(Main.window).setScene(gameScene);
 				(Main.window).setTitle("Yahtzee");
 			} 

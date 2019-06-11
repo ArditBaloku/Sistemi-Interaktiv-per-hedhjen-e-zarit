@@ -24,7 +24,8 @@ public class Game extends BorderPane
 	public BorderPane getGameView()
 	{
 		BorderPane pane= new BorderPane();
-		
+		System.out.println("User id: " + Session.getId());
+		System.out.println("User full name: " + Session.getFullName());
 		
 		Menu fileMenu = new Menu("File");
 		MenuItem newGame = new MenuItem("New Game");
@@ -83,6 +84,7 @@ public class Game extends BorderPane
 		Button signOutBtn = new Button("Sign Out");
 		signOutBtn.setOnAction(e -> {
 			(Main.window).setScene(Main.indexScene);
+			Session.clearSession();
 		});
 			
 		
