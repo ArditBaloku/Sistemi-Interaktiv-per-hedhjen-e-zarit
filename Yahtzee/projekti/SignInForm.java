@@ -1,6 +1,7 @@
 package projekti;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javafx.geometry.HPos;
@@ -126,13 +127,25 @@ public class SignInForm extends GridPane {
 		try 
 		{
 			String query = "INSERT INTO users(firstName, lastName, email, password) VALUES(?, ?, ?, ?)";
-			PreparedStatement preparedStatement = DBConnection.getConnection().prepareStatement(query);
+			PreparedStatement preparedStatement = DBConnection.getConnection().prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
 			preparedStatement.setString(1, firstName);
 			preparedStatement.setString(2, lastName);
 			preparedStatement.setString(3, email);
 			preparedStatement.setString(4, password);
 			
-			return (preparedStatement.executeUpdate() > 0);
+			if (preparedStatement.executeUpdate() > 0) {
+				ResultSet rs = preparedStatement.getGeneratedKeys();
+				rs.next();
+			    String query2 = "INSERT INTO player_statistics VALUES(?)";
+			    PreparedStatement preparedStatement2 = DBConnection.getConnection().prepareStatement(query);
+			    preparedStatement2.setInt(1, rs.getInt(1));
+			    if (preparedStatement2.executeUpdate() > 0) {
+			    	return true;
+			    } else {
+			    	return false;
+			    }
+			}
+			return false;
 		}
 		catch(SQLException ex) {
 			ex.printStackTrace();
