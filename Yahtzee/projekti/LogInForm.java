@@ -26,6 +26,7 @@ public class LogInForm extends GridPane {
 	public static PasswordField passwordTxt = new PasswordField();
 	public static Label resultLabel = new Label();
 	public static Scene gameScene;
+	public static UserSession user;
 
 	public GridPane getLogIn() {
 		Game game = new Game();
@@ -92,7 +93,7 @@ public class LogInForm extends GridPane {
 	{
 		try 
 		{
-			String query = "SELECT * FROM users WHERE email = ? AND password=?";
+			String query = "SELECT * FROM users WHERE email = ? AND password = ?";
 			
 			PreparedStatement preparedStatement = DBConnection.getConnection().prepareStatement(query);
 			preparedStatement.setString(1,  emailTxt.getText());
@@ -101,6 +102,7 @@ public class LogInForm extends GridPane {
 			ResultSet resultSet = preparedStatement.executeQuery();			
 			if(resultSet.next()) 
 			{
+				user = UserSession.getInstance(resultSet.getString(0), resultSet.getString(1), resultSet.getString(2));
 				(Main.window).setScene(gameScene);
 				(Main.window).setTitle("Yahtzee");
 			} 
