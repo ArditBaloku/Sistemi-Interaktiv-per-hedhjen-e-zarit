@@ -2,6 +2,7 @@ package projekti;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -57,11 +58,12 @@ public class Game extends BorderPane
 		
 		// loja ktu
 		Button rollBtn = new Button("Roll Dice");
+		Label scoreLabel = new Label();
 		rollBtn.setOnAction(e -> {
 			int roll = dice.roll();
 			score += roll;
 			dice.setFace(roll);
-			face = new ImageView(dice.getFace());
+			face.setImage(dice.getFace());
 			rolls++;
 			if (rolls == 10) {
 				// insert score and player into database
@@ -69,15 +71,23 @@ public class Game extends BorderPane
 				rolls = 0;
 				score = 0;
 			}
+			scoreLabel.setText(Integer.toString(score));
 		});
 		//
 		Button signOutBtn = new Button("Sign Out");
 		signOutBtn.setOnAction(e -> {
 			(Main.window).setScene(Main.indexScene);
 		});
-		pane.setTop(bar);
-		pane.setCenter(signOutBtn);
+			
 		
+		pane.setTop(bar);
+		//pane.setCenter(signOutBtn);
+		
+		face.setFitHeight(150);
+		face.setFitWidth(150);
+		pane.setCenter(face);
+		pane.setBottom(rollBtn);
+		pane.setRight(scoreLabel);
 		return pane;
 	}
 }
