@@ -24,8 +24,7 @@ public class Game extends BorderPane
 	public BorderPane getGameView()
 	{
 		BorderPane pane= new BorderPane();
-		System.out.println("User id: " + Session.getId());
-		System.out.println("User full name: " + Session.getFullName());
+
 		
 		Menu fileMenu = new Menu("File");
 		MenuItem newGame = new MenuItem("New Game");
@@ -97,6 +96,7 @@ public class Game extends BorderPane
 		pane.setBottom(rollBtn);
 		pane.setRight(scoreLabel);
 		pane.setLeft(roundsLabel);
+		pane.setBottom(new Label(Session.getFullName()));
 		return pane;
 	}
 }

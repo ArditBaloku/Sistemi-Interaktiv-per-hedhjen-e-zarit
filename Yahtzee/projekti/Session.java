@@ -1,17 +1,17 @@
 package projekti;
 
 public class Session {
-	private static String id;
-	private static String name;
-	private static String surname;
+	public static int id;
+	public static String name="";
+	public static String surname="";
 	
-	public static void setSession(String id, String name, String surname) {
+	public static void setSession(int id, String name, String surname) {
 		Session.id = id;
 		Session.name = name;
 		Session.surname = surname;
 	}
 	
-	public static String getId() {
+	public static int getId() {
 		return id;
 	}
 	
@@ -28,7 +28,7 @@ public class Session {
 	}
 	
 	public static void clearSession() {
-		id = "";
+		id = 0;
 		name = "";
 		surname = "";
 	}
