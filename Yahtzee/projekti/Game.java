@@ -38,15 +38,12 @@ public class Game extends BorderPane
 		RadioMenuItem dark = new RadioMenuItem("Dark Mode");
 		light.setToggleGroup(viewToggle);
 		dark.setToggleGroup(viewToggle);
-		
-		
-		
+			
 		viewMenu.getItems().addAll(light, dark);
 		
 		Menu helpMenu = new Menu("Help");
 		MenuItem help = new MenuItem("Help");
 		
-		highScores.setOnAction(e-> System.out.println("pite"));
 		
 		helpMenu.getItems().add(help);
 		
