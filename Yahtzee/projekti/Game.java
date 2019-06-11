@@ -8,11 +8,16 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 
 public class Game extends BorderPane
 {
 	public static Scene logInScene, signInScene, gameScene;
+	private int score = 0;
+	private int rolls = 0;
+	private Dice dice = new Dice();
+	private ImageView face = new ImageView(dice.getFace());
 
 	public BorderPane getGameView()
 	{
@@ -51,6 +56,21 @@ public class Game extends BorderPane
 		bar.getMenus().addAll(fileMenu,viewMenu,helpMenu);
 		
 		// loja ktu
+		Button rollBtn = new Button("Roll Dice");
+		rollBtn.setOnAction(e -> {
+			int roll = dice.roll();
+			score += roll;
+			dice.setFace(roll);
+			face = new ImageView(dice.getFace());
+			rolls++;
+			if (rolls == 10) {
+				// insert score and player into database
+				// show game has ended message
+				rolls = 0;
+				score = 0;
+			}
+		});
+		//
 		Button signOutBtn = new Button("Sign Out");
 		signOutBtn.setOnAction(e -> {
 			(Main.window).setScene(Main.indexScene);
