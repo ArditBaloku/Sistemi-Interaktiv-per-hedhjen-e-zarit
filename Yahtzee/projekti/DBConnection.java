@@ -7,9 +7,9 @@ public class DBConnection {
 
 	private static Connection dbConnection;
 	private final static String host = "remotemysql.com";
-	private final static String dbName = "Lvxf0xHZPG";
-	private final static String username = "Lvxf0xHZPG";
-	private final static String password = "g18E4tQbMh";
+	private final static String dbName = "xZj7ArzbBx";
+	private final static String username = "xZj7ArzbBx";
+	private final static String password = "72RwhztRls";
 
 	public static Connection getConnection() {
 		if (dbConnection == null) {
