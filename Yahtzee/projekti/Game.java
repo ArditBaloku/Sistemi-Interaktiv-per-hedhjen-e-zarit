@@ -42,10 +42,10 @@ public class Game extends BorderPane
 		viewMenu.getItems().addAll(light, dark);
 		
 		Menu helpMenu = new Menu("Help");
-		MenuItem help = new MenuItem("Help");
-		
-		
-		helpMenu.getItems().add(help);
+		MenuItem aboutHelpItem = new MenuItem("About"); 
+	    helpMenu.getItems().add(aboutHelpItem); 
+	        
+	    aboutHelpItem.setOnAction(e -> {Help.about();});
 		
 		MenuBar bar = new MenuBar();
 		bar.getMenus().addAll(fileMenu,viewMenu,helpMenu);
