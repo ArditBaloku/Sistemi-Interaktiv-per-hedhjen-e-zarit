@@ -25,8 +25,7 @@ public class Game extends BorderPane
 	{
 		BorderPane pane= new BorderPane();
 		
-		//Test session
-		System.out.println(LogInForm.user.toString());
+		
 		Menu fileMenu = new Menu("File");
 		MenuItem newGame = new MenuItem("New Game");
 		MenuItem highScores = new MenuItem("High Scores");
@@ -84,7 +83,6 @@ public class Game extends BorderPane
 		Button signOutBtn = new Button("Sign Out");
 		signOutBtn.setOnAction(e -> {
 			(Main.window).setScene(Main.indexScene);
-			LogInForm.user.cleanUserSession();
 		});
 			
 		
