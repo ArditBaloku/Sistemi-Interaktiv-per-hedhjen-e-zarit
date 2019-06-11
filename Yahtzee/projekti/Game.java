@@ -3,7 +3,6 @@ package projekti;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import default_pkg.DBConnection;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -83,6 +82,9 @@ public class Game extends BorderPane
 				// insert statistics into database
 				rolls = 0;
 				score = 0;
+				for (int i = 0; i < stats.length; i++) {
+					stats[i] = 0;
+				}
 				roundsLabel.setText("Game Over! Click the button to start playing again");
 			}
 			
@@ -104,29 +106,40 @@ public class Game extends BorderPane
 		pane.setBottom(rollBtn);
 		pane.setRight(scoreLabel);
 		pane.setLeft(roundsLabel);
-		pane.setBottom(new Label(Session.getFullName()));
 		return pane;
 	}
 	
 	public boolean insertScore(int playerId, int score, int[] stats) {
 		try {
-			String query = "INSERT INTO games_played(playerId, score) VALUES (" + playerId + ", " + score + ");";
+			String query = "INSERT INTO games_played(playerId, score) "
+					     + "VALUES (" + playerId + ", " + score + ");"
+					     + "UPDATE player_statistics "
+					     + "SET totalScore = totalScore + " + score + ", "
+					     + "ones = ones + " + stats[0] + ", "
+						 + "twos = twos + " + stats[1] + ", "
+						 + "threes = threes + " + stats[2] + ", "
+						 + "fours = fours + " + stats[3] + ", "
+						 + "fives = fives + " + stats[4] + ", "
+						 + "sixes = sixes + " + stats[5] + ", "
+						 + "noOfGames = noOfGames + 1 "
+						 + "WHERE userId = " + playerId + ";";
+			System.out.println(query);
 			PreparedStatement preparedStatement = DBConnection.getConnection().prepareStatement(query);
 			
-			String query2 = "UPDATE player_statistics "
-						  + "WHERE userId = " + playerId
-						  + "SET totalScore = totalScore + " + score + ", "
-						  + "ones = ones + " + stats[0] + ", "
-						  + "twos = twos + " + stats[1] + ", "
-						  + "threes = threes + " + stats[2] + ", "
-						  + "fours = fours + " + stats[3] + ", "
-						  + "fives = fives + " + stats[4] + ", "
-						  + "sixes = sixes + " + stats[5] + ", "
-						  + "noOfGames = noOfGames + 1";
+//			String query2 = "UPDATE player_statistics "
+//						  + "SET totalScore = totalScore + " + score + ", "
+//						  + "ones = ones + " + stats[0] + ", "
+//						  + "twos = twos + " + stats[1] + ", "
+//						  + "threes = threes + " + stats[2] + ", "
+//						  + "fours = fours + " + stats[3] + ", "
+//						  + "fives = fives + " + stats[4] + ", "
+//						  + "sixes = sixes + " + stats[5] + ", "
+//						  + "noOfGames = noOfGames + 1"
+//						  + "WHERE userId = " + playerId+";";
 			
-			PreparedStatement preparedStatement2 = DBConnection.getConnection().prepareStatement(query2);
+//			PreparedStatement preparedStatement2 = DBConnection.getConnection().prepareStatement(query2);
 			
-			return (preparedStatement.executeUpdate() > 0 && preparedStatement2.executeUpdate() > 0);
+			return (preparedStatement.executeUpdate() > 0);
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			return false;

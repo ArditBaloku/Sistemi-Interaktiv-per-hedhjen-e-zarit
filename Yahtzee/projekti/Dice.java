@@ -8,7 +8,7 @@ public class Dice {
 	private Image currentFace = new Image("img/d1.png");
 	public int roll() {
 		Random generator = new Random(System.currentTimeMillis());
-		return generator.nextInt(7);
+		return generator.nextInt(6) + 1;
 	}
 	public void setFace(int num) {
 		switch(num) {
