@@ -16,6 +16,7 @@ import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import utils.DBConnection;
 import utils.Session;
@@ -101,6 +102,10 @@ public class Game extends BorderPane
 			Session.clearSession();
 		});
 		
+		HBox hbox = new HBox(10);
+		hbox.setAlignment(Pos.TOP_RIGHT);
+		hbox.getChildren().add(signOutBtn);
+		
 		VBox vbox = new VBox(10);
 		vbox.setPadding(new Insets(20,20,20,20));
 		vbox.setAlignment(Pos.CENTER);
@@ -111,7 +116,7 @@ public class Game extends BorderPane
 		face.setFitHeight(150);
 		face.setFitWidth(150);
 		
-		box.setTop(signOutBtn);
+		box.setTop(hbox);
 		box.setCenter(face);
 		box.setBottom(vbox);
 		
