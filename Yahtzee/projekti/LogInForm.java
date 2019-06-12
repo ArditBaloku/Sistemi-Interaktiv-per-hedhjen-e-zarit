@@ -111,6 +111,7 @@ public class LogInForm extends GridPane {
 					Game game = new Game();
 					gameScene = new Scene(game.getGameView(), 400, 400);
 					(Main.window).setScene(gameScene);
+					(Main.window).setResizable(false);
 					(Main.window).setTitle("Yahtzee");
 				}
 				else {

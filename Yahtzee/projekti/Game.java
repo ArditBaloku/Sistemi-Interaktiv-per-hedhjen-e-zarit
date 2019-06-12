@@ -3,6 +3,8 @@ package projekti;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,6 +16,7 @@ import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import utils.DBConnection;
 import utils.Session;
 
@@ -62,7 +65,7 @@ public class Game extends BorderPane
 		MenuBar bar = new MenuBar();
 		bar.getMenus().addAll(fileMenu,viewMenu,helpMenu);
 		
-		// loja ktu
+
 		Button rollBtn = new Button("Roll Dice");
 		Label scoreLabel = new Label();
 		Label roundsLabel = new Label("Click the button to start playing");
@@ -91,23 +94,29 @@ public class Game extends BorderPane
 			}
 			
 		});
-		//
+		
 		Button signOutBtn = new Button("Sign Out");
 		signOutBtn.setOnAction(e -> {
 			(Main.window).setScene(Main.indexScene);
 			Session.clearSession();
 		});
-			
 		
-		pane.setTop(bar);
-		//pane.setCenter(signOutBtn);
+		VBox vbox = new VBox(10);
+		vbox.setPadding(new Insets(20,20,20,20));
+		vbox.setAlignment(Pos.CENTER);
+		vbox.getChildren().addAll(roundsLabel, scoreLabel, rollBtn);
+		
+		BorderPane box = new BorderPane();	
 		
 		face.setFitHeight(150);
 		face.setFitWidth(150);
-		pane.setCenter(face);
-		//pane.setBottom(rollBtn);
-		pane.setRight(scoreLabel);
-		pane.setLeft(roundsLabel);
+		
+		box.setTop(signOutBtn);
+		box.setCenter(face);
+		box.setBottom(vbox);
+		
+		pane.setTop(bar);
+		pane.setCenter(box);
 		pane.setBottom(statusBar.getStatusBar());
 		return pane;
 	}

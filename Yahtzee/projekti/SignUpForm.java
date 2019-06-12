@@ -37,8 +37,6 @@ public class SignUpForm extends GridPane {
 
 	public GridPane getSignUp() {
 		
-		Game game = new Game();
-		gameScene = new Scene(game.getGameView(), 400, 400);
 		GridPane pane = new GridPane();
 		pane.setAlignment(Pos.CENTER);
 		pane.setPadding(new Insets(20));
@@ -67,7 +65,7 @@ public class SignUpForm extends GridPane {
 		pane.add(emailTextField, 1, 3);
 		pane.add(password, 0, 4);
 		pane.add(passwordTextField, 1, 4);
-		pane.add(errorLabel, 0, 6, 2, 1);
+		pane.add(errorLabel, 0, 6, 3, 3);
 
 		Button signUpBtn = new Button("Sign Up");
 		signUpBtn.setStyle("-fx-text-fill: black; " + "-fx-font-family:'Arial'; "
@@ -119,8 +117,8 @@ public class SignUpForm extends GridPane {
 		{
 			if(checkEmail(emailTextField.getText())) {
 				addUser(firstNameTextField.getText(), lastNameTextField.getText(), emailTextField.getText(), passwordTextField.getText());
-				(Main.window).setScene(gameScene);
-				(Main.window).setTitle("Yahtzee");
+				errorLabel.setStyle("-fx-text-fill: red");
+				errorLabel.setText("Account created successfully!\n Go to log in section and start playing!");
 			} else {
 				errorLabel.setStyle("-fx-text-fill: red");
 				errorLabel.setText("This email is already in use");
