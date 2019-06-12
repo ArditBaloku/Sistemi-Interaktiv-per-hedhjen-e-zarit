@@ -24,15 +24,24 @@ import utils.DBConnection;
 import utils.Session;
 
 public class LogInForm extends GridPane {
-	public static Label email = new Label("Email:");
+	
+	private Label email = new Label();
+	private Label password;
+	private Label resultLabel1;
+	private Label resultLabel2;
+	
 	public static TextField emailTxt = new TextField();
-	public static Label password = new Label("Password:");
 	public static PasswordField passwordTxt = new PasswordField();
 	public static Label resultLabel = new Label();
 	public static Scene gameScene;
 
+
 	public GridPane getLogIn() {
-		
+		email = I18N.getLabel("label1");
+		resultLabel1 = I18N.getLabel("TextField1");
+		resultLabel2 = I18N.getLabel("resultlabel1");
+		password = I18N.getLabel("label2");
+
 		
 		GridPane pane = new GridPane();
 		pane.setAlignment(Pos.CENTER);
@@ -116,13 +125,13 @@ public class LogInForm extends GridPane {
 				}
 				else {
 					resultLabel.setStyle("-fx-text-fill:red");
-					resultLabel.setText("Email or password is wrong!");
+					resultLabel.setText(resultLabel2.getText());
 				}
 			} 
 			else 
 			{
 				resultLabel.setStyle("-fx-text-fill:red");
-				resultLabel.setText("Email or password is wrong!");
+				resultLabel.setText(resultLabel2.getText());
 			}
 		} 
 		catch (SQLException ex) 

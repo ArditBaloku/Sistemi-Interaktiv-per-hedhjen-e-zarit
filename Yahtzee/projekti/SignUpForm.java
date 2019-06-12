@@ -24,19 +24,27 @@ import utils.DBConnection;
 
 public class SignUpForm extends GridPane {
 	
-	public static Label firstName = new Label("First Name:");
+	private Label firstName;
+	private Label lastName;
+	private Label email;
+	private Label password;
+	private Text formName;
+	
 	public static TextField firstNameTextField = new TextField();
-	public static Label lastName = new Label("Last Name:");
 	public static TextField lastNameTextField = new TextField();
-	public static Label email = new Label("Email:");
 	public static TextField emailTextField = new TextField();
-	public static Label password = new Label("Password:");
 	public static PasswordField passwordTextField = new PasswordField();
-	public static Label errorLabel = new Label("");
 	public static Scene gameScene;
+	public static Label errorLabel  = new Label();
+	
 
 	public GridPane getSignUp() {
+		firstName = I18N.getLabel("label10");
+		lastName = I18N.getLabel("label11");
+		email = I18N.getLabel("label12");
+		password = I18N.getLabel("label13");
 		
+
 		GridPane pane = new GridPane();
 		pane.setAlignment(Pos.CENTER);
 		pane.setPadding(new Insets(20));
@@ -50,7 +58,7 @@ public class SignUpForm extends GridPane {
 			(Main.window).setScene(Main.indexScene);
 		});
 
-		Text formName = new Text("Sign Up");
+		formName = I18N.getText("text2");
 		formName.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.ITALIC, 20));
 
 		HBox title = new HBox(100);
