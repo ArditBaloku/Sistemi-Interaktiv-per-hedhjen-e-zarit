@@ -41,7 +41,9 @@ public class Game extends BorderPane
 		MenuItem personalScores = new MenuItem("_Personal Scores");
 		
 		newGame.setOnAction(e->
-								{(Main.window).setScene(gameScene);
+								{Game game = new Game();
+								 gameScene = new Scene(game.getGameView(), 400, 400);
+								 (Main.window).setScene(gameScene);
 								 (Main.window).setTitle("Yahtzee");});
 		highScores.setOnAction(e-> new HighScores().getStage2());
 		personalScores.setOnAction(e-> new PersonalScores().getStage3());
