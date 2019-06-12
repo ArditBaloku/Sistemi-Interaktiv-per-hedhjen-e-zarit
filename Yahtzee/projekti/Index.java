@@ -7,6 +7,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -54,12 +56,32 @@ public class Index extends VBox {
 			(Main.window).setTitle("Sign Up");
 		});
 		
+		HBox languageButtons = new HBox(10);
+		
+		Button alBtn = new Button();
+		Button enBtn = new Button();
+		
+		Image alImg = new Image("img/al.png");
+		Image enImg = new Image("img/en.png");
+		alBtn.setGraphic(new ImageView(alImg));
+		enBtn.setGraphic(new ImageView(enImg));
+		
+		alBtn.setOnAction(e -> {
+			I18N.setLocale(new Locale("al"));
+		});
+		
+		enBtn.setOnAction(e -> {
+			I18N.setLocale(new Locale("en"));
+		});
+		
+		languageButtons.getChildren().addAll(alBtn, enBtn);
+		languageButtons.setAlignment(Pos.CENTER);
 		
 
 		welcome = I18N.getLabel("label14");
 		welcome.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.ITALIC, 20));
 
-		pane.getChildren().addAll(welcome, buttonPane);
+		pane.getChildren().addAll(welcome, buttonPane, languageButtons);
 		return pane;
 	}
 }
