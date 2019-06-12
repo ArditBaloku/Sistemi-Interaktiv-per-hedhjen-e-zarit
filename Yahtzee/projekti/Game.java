@@ -29,16 +29,30 @@ public class Game extends BorderPane
 	private Dice dice = new Dice();
 	private ImageView face = new ImageView(dice.getFace());
 	private int[] stats = {0, 0, 0, 0, 0, 0};
+	private Menu fileMenu;
+	private MenuItem newGame;
+	private MenuItem highScores;
+	private MenuItem personalScores;
+	private Menu viewMenu;
+	private Menu helpMenu;
+	private MenuItem about;
+	private Button rollDice;
+	private Label roundsLabel1;
+	private Label roundsLabel2;
+	private Button signout;
+	private Label scoreLabel1;
+	private Label scoreLabel2;
+	private Label scoreLabel3;
+	private Label scoreLabel4;
 
 	public BorderPane getGameView()
 	{
 		BorderPane pane= new BorderPane();
 		StatusBar statusBar = new StatusBar(); 
-		
-		Menu fileMenu = new Menu("_File");
-		MenuItem newGame = new MenuItem("_New Game");
-		MenuItem highScores = new MenuItem("_High Scores");
-		MenuItem personalScores = new MenuItem("_Personal Scores");
+		fileMenu = I18N.getMenu("Menu1");
+		newGame = I18N.getMenuItem("MenuItem1");
+		highScores = I18N.getMenuItem("MenuItem2");
+		personalScores = I18N.getMenuItem("MenuItem3");
 		
 		newGame.setOnAction(e->
 								{Game game = new Game();
@@ -50,7 +64,7 @@ public class Game extends BorderPane
 		
 		fileMenu.getItems().addAll(newGame, new SeparatorMenuItem(), highScores, personalScores);
 		
-		Menu viewMenu = new Menu("_View");
+		viewMenu = I18N.getMenu("Menu2");
 		ToggleGroup viewToggle = new ToggleGroup();
 		RadioMenuItem light = new RadioMenuItem("_Light Mode");
 		RadioMenuItem dark = new RadioMenuItem("_Dark Mode");
@@ -59,33 +73,42 @@ public class Game extends BorderPane
 			
 		viewMenu.getItems().addAll(light, dark);
 		
-		Menu helpMenu = new Menu("_Help");
-		MenuItem aboutHelpItem = new MenuItem("_About"); 
-	    helpMenu.getItems().add(aboutHelpItem); 
+		helpMenu = I18N.getMenu("Menu3");
+		
+		about = I18N.getMenuItem("MenuItem4");
+		
+		
+	    helpMenu.getItems().add(about); 
 	        
-	    aboutHelpItem.setOnAction(e -> {Help.about();});
+	    about.setOnAction(e -> {Help.about();});
 		
 		MenuBar bar = new MenuBar();
 		bar.getMenus().addAll(fileMenu,viewMenu,helpMenu);
 		
 
-		Button rollBtn = new Button("Roll Dice");
+		rollDice = I18N.getButton("Button1");
+		
 		Label scoreLabel = new Label();
-		Label roundsLabel = new Label("Click the button to start playing");
-		rollBtn.setOnAction(e -> {
+		roundsLabel1 = I18N.getLabel("label3");
+		rollDice.setOnAction(e -> {
 			int roll = dice.roll();
 			score += roll;
 			stats[roll-1]++;
 			dice.setFace(roll);
 			face.setImage(dice.getFace());
 			rolls++;
+			scoreLabel1 = I18N.getLabel("label5");
+			scoreLabel2 = I18N.getLabel("label6");
+			scoreLabel3 = I18N.getLabel("label7");
+			scoreLabel4 = I18N.getLabel("label8");
+			roundsLabel2 = I18N.getLabel("label9");
 			scoreLabel.setText(Integer.toString(score));
-			roundsLabel.setText("You have " + (10 - rolls) + " rounds left");
+			roundsLabel1.setText(scoreLabel1.getText() + (10 - rolls) + scoreLabel2.getText());
 			if (rolls == 10) {
 				if (insertScore(Session.getId(), score, stats)) {
-					System.out.println("Score recorded");
+					System.out.println(scoreLabel3);
 				} else {
-					System.out.println("Error in recording score");
+					System.out.println(scoreLabel4);
 				};
 				// insert statistics into database
 				rolls = 0;
@@ -93,25 +116,25 @@ public class Game extends BorderPane
 				for (int i = 0; i < stats.length; i++) {
 					stats[i] = 0;
 				}
-				roundsLabel.setText("Game Over! Click the button to start playing again");
+				roundsLabel1.setText(roundsLabel2.getText());
 			}
 			
 		});
 		
-		Button signOutBtn = new Button("Sign Out");
-		signOutBtn.setOnAction(e -> {
+		signout = I18N.getButton("Button2");
+		signout.setOnAction(e -> {
 			(Main.window).setScene(Main.indexScene);
 			Session.clearSession();
 		});
 		
 		HBox hbox = new HBox(10);
 		hbox.setAlignment(Pos.TOP_RIGHT);
-		hbox.getChildren().add(signOutBtn);
+		hbox.getChildren().add(signout);
 		
 		VBox vbox = new VBox(10);
 		vbox.setPadding(new Insets(20,20,20,20));
 		vbox.setAlignment(Pos.CENTER);
-		vbox.getChildren().addAll(roundsLabel, scoreLabel, rollBtn);
+		vbox.getChildren().addAll(roundsLabel1, scoreLabel, rollDice);
 		
 		BorderPane box = new BorderPane();	
 		
