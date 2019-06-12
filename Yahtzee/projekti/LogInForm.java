@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
@@ -44,7 +45,6 @@ public class LogInForm extends GridPane {
 			cleanForm();
 			(Main.window).setScene(Main.indexScene);
 		});
-
 		Text formName = new Text("Log In");
 		formName.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.ITALIC, 20));
 
@@ -62,12 +62,8 @@ public class LogInForm extends GridPane {
 		logInBtn.setStyle("-fx-text-fill: black; " + "-fx-font-family:'Arial'; "
 				+ "-fx-background-color: linear-gradient(lightblue, pink); "
 				+ "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
-		logInBtn.setOnAction(e -> {
-			FormValidation.emailValidate(LogInForm.emailTxt, "Shëno email-in valid!");
-			logIn();
-			cleanForm();
-		});
-
+		logInBtn.setOnAction(e -> logInAction());
+		pane.setOnKeyPressed(e -> logInAction());
 		pane.add(logInBtn, 1, 3);
 		GridPane.setHalignment(logInBtn, HPos.RIGHT);
 
@@ -89,6 +85,12 @@ public class LogInForm extends GridPane {
 		passwordTxt.setStyle("-fx-background:white;");
 		emailTxt.setPromptText("");
 		passwordTxt.setPromptText("");
+	}
+	public void logInAction()
+	{
+		FormValidation.emailValidate(LogInForm.emailTxt, "Shëno email-in valid!");
+		logIn();
+		cleanForm();
 	}
 	private void logIn() 
 	{

@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
@@ -66,32 +67,16 @@ public class SignUpForm extends GridPane {
 		pane.add(emailTextField, 1, 3);
 		pane.add(password, 0, 4);
 		pane.add(passwordTextField, 1, 4);
+		pane.add(errorLabel, 0, 6, 2, 1);
 
 		Button signUpBtn = new Button("Sign Up");
 		signUpBtn.setStyle("-fx-text-fill: black; " + "-fx-font-family:'Arial'; "
 				+ "-fx-background-color: linear-gradient(lightblue, pink); "
 				+ "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
-		signUpBtn.setOnAction(e -> {
-			removeErrors();
-			if(valid())
-			{
-				if(checkEmail(emailTextField.getText())) {
-					addUser(firstNameTextField.getText(), lastNameTextField.getText(), emailTextField.getText(), passwordTextField.getText());
-					(Main.window).setScene(gameScene);
-					(Main.window).setTitle("Yahtzee");
-				} else {
-					errorLabel.setStyle("-fx-color: red");
-					errorLabel.setText("This email is already in use");
-				}
-			}
-			else
-			{
-				FormValidation.textFieldNotEmpty(SignUpForm.firstNameTextField, "Shëno emrin!");
-				FormValidation.textFieldNotEmpty(SignUpForm.lastNameTextField, "Shëno mbiemrin!");
-				FormValidation.emailValidate(SignUpForm.emailTextField, "Shëno email-in valid!");
-			}
-		});
-		
+		signUpBtn.setOnAction(e -> signUpAction());
+		pane.setOnKeyPressed(e -> {
+									if(e.getCode() == KeyCode.ENTER) 
+									signUpAction();});
 		pane.add(signUpBtn, 1, 5);
 		GridPane.setHalignment(signUpBtn, HPos.RIGHT);
 
@@ -114,6 +99,7 @@ public class SignUpForm extends GridPane {
 		passwordTextField.setText("");
 		passwordTextField.setStyle("-fx-background:white;");
 		passwordTextField.setPromptText("");
+		errorLabel.setText("");
 	}
 
 	public void removeErrors() {
@@ -125,6 +111,27 @@ public class SignUpForm extends GridPane {
 		emailTextField.setPromptText("");
 		passwordTextField.setStyle("-fx-background:white;");
 		passwordTextField.setPromptText("");
+	}
+	public void signUpAction()
+	{
+		removeErrors();
+		if(valid())
+		{
+			if(checkEmail(emailTextField.getText())) {
+				addUser(firstNameTextField.getText(), lastNameTextField.getText(), emailTextField.getText(), passwordTextField.getText());
+				(Main.window).setScene(gameScene);
+				(Main.window).setTitle("Yahtzee");
+			} else {
+				errorLabel.setStyle("-fx-text-fill: red");
+				errorLabel.setText("This email is already in use");
+			}
+		}
+		else
+		{
+			FormValidation.textFieldNotEmpty(SignUpForm.firstNameTextField, "Shëno emrin!");
+			FormValidation.textFieldNotEmpty(SignUpForm.lastNameTextField, "Shëno mbiemrin!");
+			FormValidation.emailValidate(SignUpForm.emailTextField, "Shëno email-in valid!");
+		}
 	}
 	public static boolean valid()
 	{
@@ -166,10 +173,9 @@ public class SignUpForm extends GridPane {
 			String query = "SELECT * FROM users WHERE email = ?";
 			PreparedStatement preparedStatement = DBConnection.getConnection().prepareStatement(query);
 			preparedStatement.setString(1, email);
-			if(!preparedStatement.execute()) {
-				return true;
-			}
-			return false;
+			ResultSet rez = preparedStatement.executeQuery();
+	
+			return rez.next();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			return false;
