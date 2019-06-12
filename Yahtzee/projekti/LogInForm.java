@@ -63,7 +63,8 @@ public class LogInForm extends GridPane {
 				+ "-fx-background-color: linear-gradient(lightblue, pink); "
 				+ "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
 		logInBtn.setOnAction(e -> logInAction());
-		pane.setOnKeyPressed(e -> logInAction());
+		pane.setOnKeyPressed(e -> {if(e.getCode() == KeyCode.ENTER) 
+										logInAction();});
 		pane.add(logInBtn, 1, 3);
 		GridPane.setHalignment(logInBtn, HPos.RIGHT);
 
