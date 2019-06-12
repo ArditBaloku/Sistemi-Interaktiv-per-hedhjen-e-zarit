@@ -1,21 +1,26 @@
 package projekti;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.stage.Stage;
-import utils.DBConnection;
-import utils.Session;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
-import javafx.scene.image.*;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class HighScores
 {
-	Label label2 = new Label();
+	private Label label2 = new Label();
+	private TableView table = new TableView();
 	public void getStage2()
 	{
 		Stage Stage2 = new Stage();  
@@ -25,7 +30,6 @@ public class HighScores
 		insidePane.setAlignment(Pos.CENTER);	
 		
 		StatusBar statusBar = new StatusBar();
-		getScores();
 		Image image = new Image("img/trofe.jpg");
 		ImageView imageView = new ImageView(image);
 		imageView.setFitHeight(150);
@@ -35,42 +39,42 @@ public class HighScores
 				
 		insidePane.getChildren().addAll(imageView,label1,label2);
 		
-		pane.setCenter(insidePane);
+		TableColumn<String, Scores> column1 = new TableColumn<>("Player");
+		TableColumn<String, Scores> column2 = new TableColumn<>("Score");
+		column1.setCellValueFactory(new PropertyValueFactory("player"));
+		column2.setCellValueFactory(new PropertyValueFactory("score"));
+		column1.setPrefWidth(300);
+		column2.setPrefWidth(300);
+		
+		table.getColumns().addAll(column1, column2);
+		table.setPrefHeight(300);
+		table.setPrefWidth(600);
+		
+		
+		Pane tablePane = new Pane();
+		tablePane.getChildren().add(table);
+		
+		pane.setLeft(insidePane);
+		pane.setRight(tablePane);
 		pane.setBottom(statusBar.getStatusBar());
-				
-		Scene scene = new Scene(pane,400,400);
+		
+		
+		Scene scene = new Scene(pane,800,400);
 			
 		Stage2.setTitle("High Scores");
 		Stage2.setScene(scene);
-				
+		showScores();
 		Stage2.show();
 	}
-	private void getScores()
+	
+	private void showScores()
 	{
-		try 
-		{
-			String query = "SELECT MAX(score) FROM games_played WHERE playerId = ?";
-			
-			PreparedStatement preparedStatement = DBConnection.getConnection().prepareStatement(query);
-			preparedStatement.setInt(1, Session.getId());
-
-			ResultSet resultSet = preparedStatement.executeQuery();	
-			if(resultSet.next())
-			{
-				if(resultSet.getInt(1)>0) 
-				{
-				label2.setText(Integer.toString(resultSet.getInt(1)));
-				}
-				else
-				{
-					label2.setText("No High Scores yet!");
-				}
-			}
+		List<Scores> scores = Scores.getScores();
+		ObservableList<Scores> scoreList = FXCollections.observableArrayList();
+		for (int i = 0; i < scores.size(); i++) {
+			scoreList.add(scores.get(i));
 		}
-		catch (SQLException ex) 
-		{
-			ex.printStackTrace();
-		}
+		table.setItems(scoreList);
 	}
 }
 
