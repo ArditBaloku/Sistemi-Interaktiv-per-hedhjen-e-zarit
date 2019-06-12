@@ -6,9 +6,11 @@ import java.sql.SQLException;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.DBConnection;
+import utils.Session;
 
 public class PersonalScores 
 {
@@ -54,13 +56,17 @@ public class PersonalScores
 			ex.printStackTrace();
 		}
 		
-		
+		BorderPane pane = new BorderPane();
+		StatusBar statusBar = new StatusBar();
 		VBox vbox = new VBox(10);
 		vbox.getChildren().addAll(fullNameTxt, totalScoreTxt, onesTxt, twosTxt, threesTxt, foursTxt, fivesTxt, sixesTxt, noOfGamesTxt);
 		vbox.setAlignment(Pos.CENTER);
 		Stage stage3 = new Stage();  
+		
+		pane.setCenter(vbox);
+		pane.setBottom(statusBar.getStatusBar());
 			
-		stage3.setScene(new Scene(vbox, 500, 500));
+		stage3.setScene(new Scene(pane, 500, 500));
 		stage3.setTitle("Personal Scores");
 				
 		stage3.show();

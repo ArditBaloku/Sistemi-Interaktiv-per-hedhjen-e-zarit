@@ -15,6 +15,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import utils.DBConnection;
+import utils.Session;
 
 public class Game extends BorderPane
 {
@@ -28,7 +29,7 @@ public class Game extends BorderPane
 	public BorderPane getGameView()
 	{
 		BorderPane pane= new BorderPane();
-
+		StatusBar statusBar = new StatusBar(); 
 		
 		Menu fileMenu = new Menu("_File");
 		MenuItem newGame = new MenuItem("_New Game");
@@ -104,9 +105,10 @@ public class Game extends BorderPane
 		face.setFitHeight(150);
 		face.setFitWidth(150);
 		pane.setCenter(face);
-		pane.setBottom(rollBtn);
+		//pane.setBottom(rollBtn);
 		pane.setRight(scoreLabel);
 		pane.setLeft(roundsLabel);
+		pane.setBottom(statusBar.getStatusBar());
 		return pane;
 	}
 	

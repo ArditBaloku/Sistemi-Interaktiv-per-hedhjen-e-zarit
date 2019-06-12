@@ -7,6 +7,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import utils.DBConnection;
+import utils.Session;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
@@ -18,10 +19,12 @@ public class HighScores
 	public void getStage2()
 	{
 		Stage Stage2 = new Stage();  
-		VBox pane = new VBox(20);
-		pane.setPadding(new Insets(20,20,20,20));
-		pane.setAlignment(Pos.CENTER);	
+		BorderPane pane = new BorderPane();
+		VBox insidePane = new VBox(20);
+		insidePane.setPadding(new Insets(20,20,20,20));
+		insidePane.setAlignment(Pos.CENTER);	
 		
+		StatusBar statusBar = new StatusBar();
 		getScores();
 		Image image = new Image("img/trofe.jpg");
 		ImageView imageView = new ImageView(image);
@@ -30,7 +33,10 @@ public class HighScores
 		
 		Label label1 = new Label("HIGH SCORES");
 				
-		pane.getChildren().addAll(imageView,label1,label2);
+		insidePane.getChildren().addAll(imageView,label1,label2);
+		
+		pane.setCenter(insidePane);
+		pane.setBottom(statusBar.getStatusBar());
 				
 		Scene scene = new Scene(pane,400,400);
 			

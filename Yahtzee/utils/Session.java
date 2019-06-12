@@ -1,9 +1,9 @@
-package projekti;
+package utils;
 
 public class Session {
 	public static int id;
-	public static String name="";
-	public static String surname="";
+	private static String name="";
+	private static String surname="";
 	
 	public static void setSession(int id, String name, String surname) {
 		Session.id = id;

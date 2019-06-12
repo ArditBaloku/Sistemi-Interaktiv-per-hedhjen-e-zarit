@@ -21,6 +21,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import utils.BCrypt;
 import utils.DBConnection;
+import utils.Session;
 
 public class LogInForm extends GridPane {
 	public static Label email = new Label("Email:");
@@ -31,8 +32,8 @@ public class LogInForm extends GridPane {
 	public static Scene gameScene;
 
 	public GridPane getLogIn() {
-		Game game = new Game();
-		gameScene = new Scene(game.getGameView(), 400, 400);
+		
+		
 		GridPane pane = new GridPane();
 		pane.setAlignment(Pos.CENTER);
 		pane.setPadding(new Insets(20, 20, 20, 20));
@@ -107,6 +108,8 @@ public class LogInForm extends GridPane {
 			{
 				if (BCrypt.checkpw(passwordTxt.getText(), resultSet.getString("password"))) {
 					Session.setSession(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3));
+					Game game = new Game();
+					gameScene = new Scene(game.getGameView(), 400, 400);
 					(Main.window).setScene(gameScene);
 					(Main.window).setTitle("Yahtzee");
 				}
