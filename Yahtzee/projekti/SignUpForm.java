@@ -175,7 +175,7 @@ public class SignUpForm extends GridPane {
 			preparedStatement.setString(1, email);
 			ResultSet rez = preparedStatement.executeQuery();
 	
-			return rez.next();
+			return !rez.next();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			return false;
