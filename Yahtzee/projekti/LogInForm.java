@@ -18,6 +18,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import utils.BCrypt;
 
 public class LogInForm extends GridPane {
 	public static Label email = new Label("Email:");
@@ -92,23 +93,28 @@ public class LogInForm extends GridPane {
 	{
 		try 
 		{
-			String query = "SELECT * FROM users WHERE email = ? AND password=?";
+			String query = "SELECT * FROM users WHERE email = ?";
 			
 			PreparedStatement preparedStatement = DBConnection.getConnection().prepareStatement(query);
 			preparedStatement.setString(1,  emailTxt.getText());
-			preparedStatement.setString(2,  passwordTxt.getText());
 
 			ResultSet resultSet = preparedStatement.executeQuery();			
 			if(resultSet.next()) 
 			{
-				Session.setSession(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3));
-				(Main.window).setScene(gameScene);
-				(Main.window).setTitle("Yahtzee");
+				if (BCrypt.checkpw(passwordTxt.getText(), resultSet.getString("password"))) {
+					Session.setSession(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3));
+					(Main.window).setScene(gameScene);
+					(Main.window).setTitle("Yahtzee");
+				}
+				else {
+					resultLabel.setStyle("-fx-text-fill:red");
+					resultLabel.setText("Email or password is wrong!");
+				}
 			} 
 			else 
 			{
 				resultLabel.setStyle("-fx-text-fill:red");
-				resultLabel.setText("Check your data again!");
+				resultLabel.setText("Email or password is wrong!");
 			}
 		} 
 		catch (SQLException ex) 

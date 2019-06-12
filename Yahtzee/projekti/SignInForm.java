@@ -18,6 +18,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import utils.BCrypt;
 
 public class SignInForm extends GridPane {
 	
@@ -126,12 +127,13 @@ public class SignInForm extends GridPane {
 	public static boolean addUser(String firstName, String lastName, String email, String password) {
 		try 
 		{
+			String hash = BCrypt.hashpw(password, BCrypt.gensalt());
 			String query = "INSERT INTO users(firstName, lastName, email, password) VALUES(?, ?, ?, ?)";
 			PreparedStatement preparedStatement = DBConnection.getConnection().prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
 			preparedStatement.setString(1, firstName);
 			preparedStatement.setString(2, lastName);
 			preparedStatement.setString(3, email);
-			preparedStatement.setString(4, password);
+			preparedStatement.setString(4, hash);
 			
 			if (preparedStatement.executeUpdate() > 0) {
 				ResultSet rs = preparedStatement.getGeneratedKeys();
