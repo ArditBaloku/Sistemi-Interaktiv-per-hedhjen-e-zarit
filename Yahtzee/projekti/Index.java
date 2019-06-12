@@ -1,5 +1,7 @@
 package projekti;
 
+import java.util.Locale;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,6 +15,9 @@ import javafx.scene.text.FontWeight;
 
 public class Index extends VBox {
 	public static Scene logInScene, signInScene;
+	private Button login;
+	private Button signup;
+	private Label welcome;
 
 	public VBox getIndex() {
 		VBox pane = new VBox(5);
@@ -27,31 +32,34 @@ public class Index extends VBox {
 		HBox buttonPane = new HBox(10);
 		buttonPane.setAlignment(Pos.CENTER);
 
-		Button logInBtn = new Button("LogIn");
-		Button signUpBtn = new Button("SignUp");
+		login = I18N.getButton("Button3");
+		signup = I18N.getButton("Button4");
+		
 
-		logInBtn.setStyle("-fx-text-fill: black; " + "-fx-font-family:'Arial'; "
+		login.setStyle("-fx-text-fill: black; " + "-fx-font-family:'Arial'; "
 				+ "-fx-background-color: linear-gradient(lightblue, pink); "
 				+ "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
-		signUpBtn.setStyle("-fx-text-fill: black; " + "-fx-font-family:'Arial'; "
+		signup.setStyle("-fx-text-fill: black; " + "-fx-font-family:'Arial'; "
 				+ "-fx-background-color: linear-gradient(lightblue, pink); "
 				+ "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
 
-		buttonPane.getChildren().addAll(logInBtn, signUpBtn);
-
-		logInBtn.setOnAction(e -> {
+		buttonPane.getChildren().addAll(login, signup);
+		
+		login.setOnAction(e -> {
 			(Main.window).setScene(logInScene);
 			(Main.window).setTitle("Log In");
 		});
-		signUpBtn.setOnAction(e -> {
+		signup.setOnAction(e -> {
 			(Main.window).setScene(signInScene);
 			(Main.window).setTitle("Sign Up");
 		});
+		
+		
 
-		Label label = new Label("Welcome to our game!");
-		label.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.ITALIC, 20));
+		welcome = I18N.getLabel("label14");
+		welcome.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.ITALIC, 20));
 
-		pane.getChildren().addAll(label, buttonPane);
+		pane.getChildren().addAll(welcome, buttonPane);
 		return pane;
 	}
 }
