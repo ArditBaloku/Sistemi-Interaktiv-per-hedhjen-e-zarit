@@ -128,14 +128,14 @@ public class SignUpForm extends GridPane {
 		}
 		else
 		{
-			FormValidation.textFieldNotEmpty(SignUpForm.firstNameTextField, "Shëno emrin!");
-			FormValidation.textFieldNotEmpty(SignUpForm.lastNameTextField, "Shëno mbiemrin!");
-			FormValidation.emailValidate(SignUpForm.emailTextField, "Shëno email-in valid!");
+			FormValidation.textFieldNotEmpty(SignUpForm.firstNameTextField, "Write Your Name!");
+			FormValidation.textFieldNotEmpty(SignUpForm.lastNameTextField, "Write Your Surname!");
+			FormValidation.emailValidate(SignUpForm.emailTextField, "Write Your Email Address !");
 		}
 	}
 	public static boolean valid()
 	{
-		return FormValidation.emailValidate(SignUpForm.emailTextField,"Sheno email valid") && FormValidation.textFieldNotEmpty(SignUpForm.firstNameTextField) && FormValidation.textFieldNotEmpty(SignUpForm.lastNameTextField) && FormValidation.textFieldNotEmpty(SignUpForm.passwordTextField);
+		return FormValidation.emailValidate(SignUpForm.emailTextField,"Invalid Email Address!") && FormValidation.textFieldNotEmpty(SignUpForm.firstNameTextField) && FormValidation.textFieldNotEmpty(SignUpForm.lastNameTextField) && FormValidation.textFieldNotEmpty(SignUpForm.passwordTextField);
 	}
 	public static boolean addUser(String firstName, String lastName, String email, String password) {
 		try 
@@ -175,7 +175,7 @@ public class SignUpForm extends GridPane {
 			preparedStatement.setString(1, email);
 			ResultSet rez = preparedStatement.executeQuery();
 	
-			return !rez.next();
+			return rez.next();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			return false;

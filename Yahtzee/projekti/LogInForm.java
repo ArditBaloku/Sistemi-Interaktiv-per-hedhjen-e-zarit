@@ -89,7 +89,7 @@ public class LogInForm extends GridPane {
 	}
 	public void logInAction()
 	{
-		FormValidation.emailValidate(LogInForm.emailTxt, "Shëno email-in valid!");
+		FormValidation.emailValidate(LogInForm.emailTxt, "Invalid Email Address!");
 		logIn();
 		cleanForm();
 	}
