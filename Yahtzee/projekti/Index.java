@@ -45,10 +45,10 @@ public class Index extends VBox {
 		});
 		signUpBtn.setOnAction(e -> {
 			(Main.window).setScene(signInScene);
-			(Main.window).setTitle("Sign In");
+			(Main.window).setTitle("Sign Up");
 		});
 
-		Label label = new Label("Welome to our game!");
+		Label label = new Label("Welcome to our game!");
 		label.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.ITALIC, 20));
 
 		pane.getChildren().addAll(label, buttonPane);

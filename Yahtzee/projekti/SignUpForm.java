@@ -52,7 +52,7 @@ public class SignUpForm extends GridPane {
 			(Main.window).setScene(Main.indexScene);
 		});
 
-		Text formName = new Text("Sign In");
+		Text formName = new Text("Sign Up");
 		formName.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.ITALIC, 20));
 
 		HBox title = new HBox(100);
@@ -175,7 +175,7 @@ public class SignUpForm extends GridPane {
 			preparedStatement.setString(1, email);
 			ResultSet rez = preparedStatement.executeQuery();
 	
-			return rez.next();
+			return !rez.next();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			return false;

@@ -30,10 +30,10 @@ public class Game extends BorderPane
 		BorderPane pane= new BorderPane();
 
 		
-		Menu fileMenu = new Menu("File");
-		MenuItem newGame = new MenuItem("New Game");
-		MenuItem highScores = new MenuItem("High Scores");
-		MenuItem personalScores = new MenuItem("Personal Scores");
+		Menu fileMenu = new Menu("_File");
+		MenuItem newGame = new MenuItem("_New Game");
+		MenuItem highScores = new MenuItem("_High Scores");
+		MenuItem personalScores = new MenuItem("_Personal Scores");
 		
 		newGame.setOnAction(e->
 								{(Main.window).setScene(gameScene);
@@ -43,17 +43,17 @@ public class Game extends BorderPane
 		
 		fileMenu.getItems().addAll(newGame, new SeparatorMenuItem(), highScores, personalScores);
 		
-		Menu viewMenu = new Menu("View");
+		Menu viewMenu = new Menu("_View");
 		ToggleGroup viewToggle = new ToggleGroup();
-		RadioMenuItem light = new RadioMenuItem("Light Mode");
-		RadioMenuItem dark = new RadioMenuItem("Dark Mode");
+		RadioMenuItem light = new RadioMenuItem("_Light Mode");
+		RadioMenuItem dark = new RadioMenuItem("_Dark Mode");
 		light.setToggleGroup(viewToggle);
 		dark.setToggleGroup(viewToggle);
 			
 		viewMenu.getItems().addAll(light, dark);
 		
-		Menu helpMenu = new Menu("Help");
-		MenuItem aboutHelpItem = new MenuItem("About"); 
+		Menu helpMenu = new Menu("_Help");
+		MenuItem aboutHelpItem = new MenuItem("_About"); 
 	    helpMenu.getItems().add(aboutHelpItem); 
 	        
 	    aboutHelpItem.setOnAction(e -> {Help.about();});
@@ -124,21 +124,7 @@ public class Game extends BorderPane
 						 + "sixes = sixes + " + stats[5] + ", "
 						 + "noOfGames = noOfGames + 1 "
 						 + "WHERE userId = " + playerId + ";";
-			System.out.println(query);
 			PreparedStatement preparedStatement = DBConnection.getConnection().prepareStatement(query);
-			
-//			String query2 = "UPDATE player_statistics "
-//						  + "SET totalScore = totalScore + " + score + ", "
-//						  + "ones = ones + " + stats[0] + ", "
-//						  + "twos = twos + " + stats[1] + ", "
-//						  + "threes = threes + " + stats[2] + ", "
-//						  + "fours = fours + " + stats[3] + ", "
-//						  + "fives = fives + " + stats[4] + ", "
-//						  + "sixes = sixes + " + stats[5] + ", "
-//						  + "noOfGames = noOfGames + 1"
-//						  + "WHERE userId = " + playerId+";";
-			
-//			PreparedStatement preparedStatement2 = DBConnection.getConnection().prepareStatement(query2);
 			
 			return (preparedStatement.executeUpdate() > 0);
 		} catch (SQLException ex) {
