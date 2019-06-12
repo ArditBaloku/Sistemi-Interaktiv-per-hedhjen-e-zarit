@@ -21,29 +21,29 @@ public class Index extends VBox {
 		pane.setStyle("-fx-background-color:linear-gradient(pink, lightblue); ");
 
 		LogInForm form1 = new LogInForm();
-		SignInForm form2 = new SignInForm();
+		SignUpForm form2 = new SignUpForm();
 		logInScene = new Scene(form1.getLogIn(), 400, 400);
-		signInScene = new Scene(form2.getSignIn(), 400, 400);
+		signInScene = new Scene(form2.getSignUp(), 400, 400);
 		HBox buttonPane = new HBox(10);
 		buttonPane.setAlignment(Pos.CENTER);
 
 		Button logInBtn = new Button("LogIn");
-		Button signInBtn = new Button("SignIn");
+		Button signUpBtn = new Button("SignUp");
 
 		logInBtn.setStyle("-fx-text-fill: black; " + "-fx-font-family:'Arial'; "
 				+ "-fx-background-color: linear-gradient(lightblue, pink); "
 				+ "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
-		signInBtn.setStyle("-fx-text-fill: black; " + "-fx-font-family:'Arial'; "
+		signUpBtn.setStyle("-fx-text-fill: black; " + "-fx-font-family:'Arial'; "
 				+ "-fx-background-color: linear-gradient(lightblue, pink); "
 				+ "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
 
-		buttonPane.getChildren().addAll(logInBtn, signInBtn);
+		buttonPane.getChildren().addAll(logInBtn, signUpBtn);
 
 		logInBtn.setOnAction(e -> {
 			(Main.window).setScene(logInScene);
 			(Main.window).setTitle("Log In");
 		});
-		signInBtn.setOnAction(e -> {
+		signUpBtn.setOnAction(e -> {
 			(Main.window).setScene(signInScene);
 			(Main.window).setTitle("Sign In");
 		});

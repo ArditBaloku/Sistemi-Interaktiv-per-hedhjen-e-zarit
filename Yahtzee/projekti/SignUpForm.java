@@ -14,7 +14,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -22,20 +21,20 @@ import javafx.scene.text.Text;
 import utils.BCrypt;
 import utils.DBConnection;
 
-public class SignInForm extends GridPane {
+public class SignUpForm extends GridPane {
 	
-	public static Label FirstName = new Label("First Name:");
-	public static TextField FirstNameTextField = new TextField();
-	public static Label LastName = new Label("Last Name:");
-	public static TextField LastNameTextField = new TextField();
-	public static Label Email = new Label("Email:");
-	public static TextField EmailTextField = new TextField();
-	public static Label Password = new Label("Password:");
-	public static PasswordField PasswordTextField = new PasswordField();
+	public static Label firstName = new Label("First Name:");
+	public static TextField firstNameTextField = new TextField();
+	public static Label lastName = new Label("Last Name:");
+	public static TextField lastNameTextField = new TextField();
+	public static Label email = new Label("Email:");
+	public static TextField emailTextField = new TextField();
+	public static Label password = new Label("Password:");
+	public static PasswordField passwordTextField = new PasswordField();
 	public static Label errorLabel = new Label("");
 	public static Scene gameScene;
 
-	public GridPane getSignIn() {
+	public GridPane getSignUp() {
 		
 		Game game = new Game();
 		gameScene = new Scene(game.getGameView(), 400, 400);
@@ -52,32 +51,32 @@ public class SignInForm extends GridPane {
 			(Main.window).setScene(Main.indexScene);
 		});
 
-		Text FormName = new Text("Sign In");
-		FormName.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.ITALIC, 20));
+		Text formName = new Text("Sign In");
+		formName.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.ITALIC, 20));
 
 		HBox title = new HBox(100);
-		title.getChildren().addAll(FormName, backBtn);
+		title.getChildren().addAll(formName, backBtn);
 
 		pane.add(title, 0, 0, 2, 1);
-		pane.add(FirstName, 0, 1);
-		pane.add(FirstNameTextField, 1, 1);
-		pane.add(LastName, 0, 2);
-		pane.add(LastNameTextField, 1, 2);
-		pane.add(Email, 0, 3);
-		pane.add(EmailTextField, 1, 3);
-		pane.add(Password, 0, 4);
-		pane.add(PasswordTextField, 1, 4);
+		pane.add(firstName, 0, 1);
+		pane.add(firstNameTextField, 1, 1);
+		pane.add(lastName, 0, 2);
+		pane.add(lastNameTextField, 1, 2);
+		pane.add(email, 0, 3);
+		pane.add(emailTextField, 1, 3);
+		pane.add(password, 0, 4);
+		pane.add(passwordTextField, 1, 4);
 
-		Button signInBtn = new Button("Sign In");
-		signInBtn.setStyle("-fx-text-fill: black; " + "-fx-font-family:'Arial'; "
+		Button signUpBtn = new Button("Sign Up");
+		signUpBtn.setStyle("-fx-text-fill: black; " + "-fx-font-family:'Arial'; "
 				+ "-fx-background-color: linear-gradient(lightblue, pink); "
 				+ "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
-		signInBtn.setOnAction(e -> {
+		signUpBtn.setOnAction(e -> {
 			removeErrors();
 			if(valid())
 			{
-				if(checkEmail(EmailTextField.getText())) {
-					addUser(FirstNameTextField.getText(), LastNameTextField.getText(), EmailTextField.getText(), PasswordTextField.getText());
+				if(checkEmail(emailTextField.getText())) {
+					addUser(firstNameTextField.getText(), lastNameTextField.getText(), emailTextField.getText(), passwordTextField.getText());
 					(Main.window).setScene(gameScene);
 					(Main.window).setTitle("Yahtzee");
 				} else {
@@ -87,14 +86,14 @@ public class SignInForm extends GridPane {
 			}
 			else
 			{
-				FormValidation.textFieldNotEmpty(SignInForm.FirstNameTextField, "Shëno emrin!");
-				FormValidation.textFieldNotEmpty(SignInForm.LastNameTextField, "Shëno mbiemrin!");
-				FormValidation.emailValidate(SignInForm.EmailTextField, "Shëno email-in valid!");
+				FormValidation.textFieldNotEmpty(SignUpForm.firstNameTextField, "Shëno emrin!");
+				FormValidation.textFieldNotEmpty(SignUpForm.lastNameTextField, "Shëno mbiemrin!");
+				FormValidation.emailValidate(SignUpForm.emailTextField, "Shëno email-in valid!");
 			}
 		});
 		
-		pane.add(signInBtn, 1, 5);
-		GridPane.setHalignment(signInBtn, HPos.RIGHT);
+		pane.add(signUpBtn, 1, 5);
+		GridPane.setHalignment(signUpBtn, HPos.RIGHT);
 
 		final Text actionTarget = new Text();
 		pane.add(actionTarget, 1, 9);
@@ -103,33 +102,33 @@ public class SignInForm extends GridPane {
 	}
 
 	public void cleanForm() {
-		FirstNameTextField.setText("");
-		FirstNameTextField.setStyle("-fx-background:white;");
-		FirstNameTextField.setPromptText("");
-		LastNameTextField.setText("");
-		LastNameTextField.setStyle("-fx-background:white;");
-		LastNameTextField.setPromptText("");
-		EmailTextField.setText("");
-		EmailTextField.setStyle("-fx-background:white;");
-		EmailTextField.setPromptText("");
-		PasswordTextField.setText("");
-		PasswordTextField.setStyle("-fx-background:white;");
-		PasswordTextField.setPromptText("");
+		firstNameTextField.setText("");
+		firstNameTextField.setStyle("-fx-background:white;");
+		firstNameTextField.setPromptText("");
+		lastNameTextField.setText("");
+		lastNameTextField.setStyle("-fx-background:white;");
+		lastNameTextField.setPromptText("");
+		emailTextField.setText("");
+		emailTextField.setStyle("-fx-background:white;");
+		emailTextField.setPromptText("");
+		passwordTextField.setText("");
+		passwordTextField.setStyle("-fx-background:white;");
+		passwordTextField.setPromptText("");
 	}
 
 	public void removeErrors() {
-		FirstNameTextField.setStyle("-fx-background:white;");
-		FirstNameTextField.setPromptText("");
-		LastNameTextField.setStyle("-fx-background:white;");
-		LastNameTextField.setPromptText("");
-		EmailTextField.setStyle("-fx-background:white;");
-		EmailTextField.setPromptText("");
-		PasswordTextField.setStyle("-fx-background:white;");
-		PasswordTextField.setPromptText("");
+		firstNameTextField.setStyle("-fx-background:white;");
+		firstNameTextField.setPromptText("");
+		lastNameTextField.setStyle("-fx-background:white;");
+		lastNameTextField.setPromptText("");
+		emailTextField.setStyle("-fx-background:white;");
+		emailTextField.setPromptText("");
+		passwordTextField.setStyle("-fx-background:white;");
+		passwordTextField.setPromptText("");
 	}
 	public static boolean valid()
 	{
-		return FormValidation.emailValidate(SignInForm.EmailTextField,"Sheno email valid") && FormValidation.textFieldNotEmpty(SignInForm.FirstNameTextField) && FormValidation.textFieldNotEmpty(SignInForm.LastNameTextField) && FormValidation.textFieldNotEmpty(SignInForm.PasswordTextField);
+		return FormValidation.emailValidate(SignUpForm.emailTextField,"Sheno email valid") && FormValidation.textFieldNotEmpty(SignUpForm.firstNameTextField) && FormValidation.textFieldNotEmpty(SignUpForm.lastNameTextField) && FormValidation.textFieldNotEmpty(SignUpForm.passwordTextField);
 	}
 	public static boolean addUser(String firstName, String lastName, String email, String password) {
 		try 
