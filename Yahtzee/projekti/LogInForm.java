@@ -19,6 +19,7 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import utils.BCrypt;
+import utils.DBConnection;
 
 public class LogInForm extends GridPane {
 	public static Label email = new Label("Email:");

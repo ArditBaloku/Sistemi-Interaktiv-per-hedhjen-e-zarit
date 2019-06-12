@@ -1,4 +1,4 @@
-package projekti;
+package utils;
 
 import java.sql.*;
 

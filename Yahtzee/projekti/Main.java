@@ -2,6 +2,7 @@ package projekti;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import utils.DBConnection;
 import javafx.scene.Scene;
 
 public class Main extends Application {

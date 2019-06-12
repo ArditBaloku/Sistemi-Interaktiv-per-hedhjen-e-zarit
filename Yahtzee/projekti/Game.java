@@ -14,6 +14,7 @@ import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import utils.DBConnection;
 
 public class Game extends BorderPane
 {

@@ -14,11 +14,13 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import utils.BCrypt;
+import utils.DBConnection;
 
 public class SignInForm extends GridPane {
 	
@@ -30,6 +32,7 @@ public class SignInForm extends GridPane {
 	public static TextField EmailTextField = new TextField();
 	public static Label Password = new Label("Password:");
 	public static PasswordField PasswordTextField = new PasswordField();
+	public static Label errorLabel = new Label("");
 	public static Scene gameScene;
 
 	public GridPane getSignIn() {
@@ -73,10 +76,14 @@ public class SignInForm extends GridPane {
 			removeErrors();
 			if(valid())
 			{
-				addUser(FirstNameTextField.getText(), LastNameTextField.getText(), EmailTextField.getText(), PasswordTextField.getText());
-				cleanForm();
-				(Main.window).setScene(gameScene);
-				(Main.window).setTitle("Yahtzee");
+				if(checkEmail(EmailTextField.getText())) {
+					addUser(FirstNameTextField.getText(), LastNameTextField.getText(), EmailTextField.getText(), PasswordTextField.getText());
+					(Main.window).setScene(gameScene);
+					(Main.window).setTitle("Yahtzee");
+				} else {
+					errorLabel.setStyle("-fx-color: red");
+					errorLabel.setText("This email is already in use");
+				}
 			}
 			else
 			{
@@ -138,8 +145,8 @@ public class SignInForm extends GridPane {
 			if (preparedStatement.executeUpdate() > 0) {
 				ResultSet rs = preparedStatement.getGeneratedKeys();
 				rs.next();
-			    String query2 = "INSERT INTO player_statistics VALUES(?)";
-			    PreparedStatement preparedStatement2 = DBConnection.getConnection().prepareStatement(query);
+			    String query2 = "INSERT INTO player_statistics(userId) VALUES(?)";
+			    PreparedStatement preparedStatement2 = DBConnection.getConnection().prepareStatement(query2);
 			    preparedStatement2.setInt(1, rs.getInt(1));
 			    if (preparedStatement2.executeUpdate() > 0) {
 			    	return true;
@@ -150,6 +157,21 @@ public class SignInForm extends GridPane {
 			return false;
 		}
 		catch(SQLException ex) {
+			ex.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean checkEmail(String email) {
+		try {
+			String query = "SELECT * FROM users WHERE email = ?";
+			PreparedStatement preparedStatement = DBConnection.getConnection().prepareStatement(query);
+			preparedStatement.setString(1, email);
+			if(!preparedStatement.execute()) {
+				return true;
+			}
+			return false;
+		} catch (SQLException ex) {
 			ex.printStackTrace();
 			return false;
 		}
