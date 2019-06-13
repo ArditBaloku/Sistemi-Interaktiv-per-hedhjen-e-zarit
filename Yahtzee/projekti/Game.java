@@ -2,6 +2,7 @@ package projekti;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Locale;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -34,7 +35,7 @@ public class Game extends BorderPane
 	private MenuItem newGame;
 	private MenuItem highScores;
 	private MenuItem personalScores;
-	private Menu viewMenu;
+	private Menu languageMenu;
 	private Menu helpMenu;
 	private MenuItem about;
 	private Button rollDice;
@@ -66,14 +67,32 @@ public class Game extends BorderPane
 		
 		fileMenu.getItems().addAll(newGame, new SeparatorMenuItem(), highScores, personalScores);
 		
-		viewMenu = I18N.getMenu("Menu2");
+		languageMenu = I18N.getMenu("Menu2");
 		ToggleGroup viewToggle = new ToggleGroup();
-		RadioMenuItem light = new RadioMenuItem("_Light Mode");
-		RadioMenuItem dark = new RadioMenuItem("_Dark Mode");
-		light.setToggleGroup(viewToggle);
-		dark.setToggleGroup(viewToggle);
+		RadioMenuItem al = new RadioMenuItem("_Shqip");
+		RadioMenuItem en = new RadioMenuItem("_English");
+		al.setToggleGroup(viewToggle);
+		en.setToggleGroup(viewToggle);
+		
+		String lang = I18N.getLocale().toString();
+		
+		if (lang.equals("al")) {
+			al.setSelected(true);
+		} else {
+			en.setSelected(true);
+		}
+		
 			
-		viewMenu.getItems().addAll(light, dark);
+		languageMenu.getItems().addAll(al, en);
+		
+		al.setOnAction(e -> {
+			I18N.setLocale(new Locale("al"));
+		});
+		en.setOnAction(e -> {
+			I18N.setLocale(new Locale("en"));
+		});
+		
+		
 		
 		helpMenu = I18N.getMenu("Menu3");
 		
@@ -85,7 +104,7 @@ public class Game extends BorderPane
 	    about.setOnAction(e -> {Help.about();});
 		
 		MenuBar bar = new MenuBar();
-		bar.getMenus().addAll(fileMenu,viewMenu,helpMenu);
+		bar.getMenus().addAll(fileMenu,languageMenu,helpMenu);
 		
 
 		rollDice = I18N.getButton("Button1");
