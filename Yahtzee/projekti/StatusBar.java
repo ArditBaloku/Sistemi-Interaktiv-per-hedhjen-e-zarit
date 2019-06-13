@@ -7,17 +7,20 @@ import utils.Session;
 
 public class StatusBar extends HBox
 {
+	private Label player;
+
 	public HBox getStatusBar()
 	{
+		player = I18N.getLabel("label15");
 		HBox statusBar = new HBox(10);
 		Label userInfo = new Label();
 		userInfo.setPadding(new Insets(5,20,5,5));
 		String fullName = Session.getFullName();
-		userInfo.setText("Player: " + fullName);
+		userInfo.setText(player.getText() + fullName);
 		userInfo.setStyle("-fx-text-fill:black;");
 		statusBar.getChildren().add(userInfo);
 		statusBar.setStyle("-fx-background-color:linear-gradient(#c2b6b6, #576574);");
-		
+
 		return statusBar;
 	}
 }
