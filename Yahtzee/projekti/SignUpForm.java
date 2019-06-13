@@ -125,7 +125,7 @@ public class SignUpForm extends GridPane {
 		if(valid())
 		{
 			if(checkEmail(emailTextField.getText())) {
-				addUser(firstNameTextField.getText(), lastNameTextField.getText(), emailTextField.getText(), passwordTextField.getText());
+				addUser(firstNameTextField.getText(), lastNameTextField.getText(), emailTextField.getText().toLowerCase(), passwordTextField.getText());
 				errorLabel.setStyle("-fx-text-fill: red");
 				errorLabel.setText(I18N.getLabel("TextField7").getText() + "/n" + I18N.getLabel("TextField8").getText());
 			} else {
