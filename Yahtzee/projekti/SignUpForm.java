@@ -126,7 +126,7 @@ public class SignUpForm extends GridPane {
 		if(valid())
 		{
 			if(checkEmail(emailTextField.getText())) {
-				addUser(firstNameTextField.getText(), lastNameTextField.getText(), emailTextField.getText(), passwordTextField.getText());
+				addUser(firstNameTextField.getText(), lastNameTextField.getText(), emailTextField.getText().toLowerCase(), passwordTextField.getText());
 				errorLabel.setStyle("-fx-text-fill: red");
 				errorLabel.setText("Account created successfully!\n Go to log in section and start playing!");
 			} else {

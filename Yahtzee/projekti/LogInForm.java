@@ -113,7 +113,7 @@ public class LogInForm extends GridPane {
 			String query = "SELECT * FROM users WHERE email = ?";
 			
 			PreparedStatement preparedStatement = DBConnection.getConnection().prepareStatement(query);
-			preparedStatement.setString(1,  emailTxt.getText());
+			preparedStatement.setString(1,  emailTxt.getText().toLowerCase());
 
 			ResultSet resultSet = preparedStatement.executeQuery();			
 			if(resultSet.next()) 
