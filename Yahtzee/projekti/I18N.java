@@ -91,5 +91,10 @@ public class I18N {
 		text.textProperty().bind(createStringBinding(key,args));
 		return text;
 	}
-
+	
+	public static TableColumn getTblColumn(String key, Object... args) {
+		TableColumn<String, Scores> column = new TableColumn<>();
+		column.textProperty().bind(createStringBinding(key, args));
+		return column;
+	}
 }
