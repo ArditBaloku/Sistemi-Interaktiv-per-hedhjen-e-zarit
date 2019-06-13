@@ -51,12 +51,12 @@ public class Game extends BorderPane
 	public BorderPane getGameView()
 	{
 		BorderPane pane= new BorderPane();
-		StatusBar statusBar = new StatusBar(); 
+		StatusBar statusBar = new StatusBar();
 		fileMenu = I18N.getMenu("Menu1");
 		newGame = I18N.getMenuItem("MenuItem1");
 		highScores = I18N.getMenuItem("MenuItem2");
 		personalScores = I18N.getMenuItem("MenuItem3");
-		
+
 		newGame.setOnAction(e->
 								{Game game = new Game();
 								 gameScene = new Scene(game.getGameView(), 400, 400);
@@ -64,51 +64,51 @@ public class Game extends BorderPane
 								 (Main.window).setTitle("Yahtzee");});
 		highScores.setOnAction(e-> new HighScores().getStage2());
 		personalScores.setOnAction(e-> new PersonalScores().getStage3());
-		
+
 		fileMenu.getItems().addAll(newGame, new SeparatorMenuItem(), highScores, personalScores);
-		
+
 		languageMenu = I18N.getMenu("Menu2");
 		ToggleGroup viewToggle = new ToggleGroup();
 		RadioMenuItem al = new RadioMenuItem("_Shqip");
 		RadioMenuItem en = new RadioMenuItem("_English");
 		al.setToggleGroup(viewToggle);
 		en.setToggleGroup(viewToggle);
-		
+
 		String lang = I18N.getLocale().toString();
-		
+
 		if (lang.equals("al")) {
 			al.setSelected(true);
 		} else {
 			en.setSelected(true);
 		}
-		
-			
+
+
 		languageMenu.getItems().addAll(al, en);
-		
+
 		al.setOnAction(e -> {
 			I18N.setLocale(new Locale("al"));
 		});
 		en.setOnAction(e -> {
 			I18N.setLocale(new Locale("en"));
 		});
-		
-		
-		
+
+
+
 		helpMenu = I18N.getMenu("Menu3");
-		
+
 		about = I18N.getMenuItem("MenuItem4");
-		
-		
-	    helpMenu.getItems().add(about); 
-	        
-	    about.setOnAction(e -> {Help.about();});
-		
+
+
+	  helpMenu.getItems().add(about);
+
+	  about.setOnAction(e -> {Help.about();});
+
 		MenuBar bar = new MenuBar();
 		bar.getMenus().addAll(fileMenu,languageMenu,helpMenu);
-		
+
 
 		rollDice = I18N.getButton("Button1");
-		
+
 		Label scoreLabel = new Label();
 		roundsLabel1 = I18N.getLabel("label3");
 		roundsLabel2 = I18N.getLabel("label7");
@@ -135,42 +135,42 @@ public class Game extends BorderPane
 				roundsLabel2.setVisible(true);
 				scoreLabel3.setVisible(false);
 			}
-			
+
 		});
-		
+
 		signout = I18N.getButton("Button2");
 		signout.setOnAction(e -> {
 			(Main.window).setScene(Main.indexScene);
 			Session.clearSession();
 		});
-		
+
 		HBox hbox = new HBox(10);
 		hbox.setAlignment(Pos.TOP_RIGHT);
 		hbox.getChildren().add(signout);
-		
+
 		StackPane labels = new StackPane();
 		labels.getChildren().addAll(roundsLabel1, roundsLabel2, scoreLabel3);
-		
+
 		VBox vbox = new VBox(10);
 		vbox.setPadding(new Insets(20,20,20,20));
 		vbox.setAlignment(Pos.CENTER);
 		vbox.getChildren().addAll(labels, scoreLabel, rollDice);
-		
-		BorderPane box = new BorderPane();	
-		
+
+		BorderPane box = new BorderPane();
+
 		face.setFitHeight(150);
 		face.setFitWidth(150);
-		
+
 		box.setTop(hbox);
 		box.setCenter(face);
 		box.setBottom(vbox);
-		
+
 		pane.setTop(bar);
 		pane.setCenter(box);
 		pane.setBottom(statusBar.getStatusBar());
 		return pane;
 	}
-	
+
 	public boolean insertScore(int playerId, int score, int[] stats) {
 		try {
 			String query = "INSERT INTO games_played(playerId, score) "
@@ -186,7 +186,7 @@ public class Game extends BorderPane
 						 + "noOfGames = noOfGames + 1 "
 						 + "WHERE userId = " + playerId + ";";
 			PreparedStatement preparedStatement = DBConnection.getConnection().prepareStatement(query);
-			
+
 			return (preparedStatement.executeUpdate() > 0);
 		} catch (SQLException ex) {
 			ex.printStackTrace();

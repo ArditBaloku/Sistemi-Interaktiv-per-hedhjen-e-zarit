@@ -15,15 +15,23 @@ public class Help {
 	public static void about() {
 
 		Stage helpAboutStage = new Stage();
-		
+
 		WebView browser = new WebView();
 
 		WebEngine webEngine = browser.getEngine();
 
-		String url = Help.class.getResource("helpabout.html").toExternalForm();
+		String url;
+
+		String lang = I18N.getLocale().toString();
+
+		if (lang.equals("al")) {
+			url = Help.class.getResource("alhelp.html").toExternalForm();
+		} else {
+			url = Help.class.getResource("enhelp.html").toExternalForm();
+		}
 
 		System.out.println("Local URL: " + url);
-		
+
 		webEngine.load(url);
 
 		Scene sc = new Scene(browser, 500, 300);
@@ -35,4 +43,3 @@ public class Help {
 	}
 
 }
-
