@@ -49,11 +49,11 @@ public class Index extends VBox {
 		
 		login.setOnAction(e -> {
 			(Main.window).setScene(logInScene);
-			(Main.window).setTitle("Log In");
+			(Main.window).setTitle(I18N.getLabel("Button3").getText());
 		});
 		signup.setOnAction(e -> {
 			(Main.window).setScene(signInScene);
-			(Main.window).setTitle("Sign Up");
+			(Main.window).setTitle(I18N.getLabel("Button4").getText());
 		});
 		
 		HBox languageButtons = new HBox(10);
