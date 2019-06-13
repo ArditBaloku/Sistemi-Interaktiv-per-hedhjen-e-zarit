@@ -16,16 +16,18 @@ public class PersonalScores
 {
 	private String fullName = Session.getFullName();
 	private int totalScore, ones, twos, threes, fours, fives, sixes, noOfGames;
-	private Label fullNameTxt = new Label("Player: " + fullName);
-	private Label totalScoreTxt = new Label();
-	private Label onesTxt = new Label();
-	private Label twosTxt = new Label();
-	private Label threesTxt = new Label();
-	private Label foursTxt = new Label();
-	private Label fivesTxt = new Label();
-	private Label sixesTxt = new Label();
-	private Label noOfGamesTxt = new Label();
-	
+	private Label player = I18N.getLabel("label15");
+	private Label fullNameTxt = new Label(player.getText() + fullName);
+	private Label totalScoreTxt = I18N.getLabel("label20"); 
+	private Label onesTxt = I18N.getLabel("label21");
+	private Label twosTxt = I18N.getLabel("label22");
+	private Label threesTxt = I18N.getLabel("label23");
+	private Label foursTxt = I18N.getLabel("label24");
+	private Label fivesTxt = I18N.getLabel("label25");
+	private Label sixesTxt = I18N.getLabel("label26");
+	private Label noOfGamesTxt = I18N.getLabel("label27"); 
+	private Label personalScores;
+
 	public void getStage3()
 	{
 		String query = "SELECT * "
@@ -44,18 +46,19 @@ public class PersonalScores
 			fives = result.getInt("fives");
 			sixes = result.getInt("sixes");
 			noOfGames = result.getInt("noOfGames");
-			totalScoreTxt.setText("Total score: " + String.valueOf(totalScore));
-			onesTxt.setText("Ones: " + String.valueOf(ones));
-			twosTxt.setText("Twos: " + String.valueOf(twos));
-			threesTxt.setText("Threes: " + String.valueOf(threes));
-			foursTxt.setText("Fours: " + String.valueOf(fours));
-			fivesTxt.setText("Fives: " + String.valueOf(fives));
-			sixesTxt.setText("Sixes: " + String.valueOf(sixes));
-			noOfGamesTxt.setText("Games played: " + String.valueOf(noOfGames));
+			totalScoreTxt.setText(totalScoreTxt.getText() + String.valueOf(totalScore));
+			onesTxt.setText(onesTxt.getText() + String.valueOf(ones));
+			twosTxt.setText(twosTxt.getText()  + String.valueOf(twos));
+			threesTxt.setText(threesTxt.getText()  + String.valueOf(threes));
+			foursTxt.setText(foursTxt.getText()  + String.valueOf(fours));
+			fivesTxt.setText(fivesTxt.getText()  + String.valueOf(fives));
+			sixesTxt.setText(sixesTxt.getText()  + String.valueOf(sixes));
+			noOfGamesTxt.setText(noOfGamesTxt.getText() + String.valueOf(noOfGames));
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
 		
+		personalScores = I18N.getLabel("label19");
 		BorderPane pane = new BorderPane();
 		StatusBar statusBar = new StatusBar();
 		VBox vbox = new VBox(10);
@@ -67,7 +70,7 @@ public class PersonalScores
 		pane.setBottom(statusBar.getStatusBar());
 			
 		stage3.setScene(new Scene(pane, 500, 500));
-		stage3.setTitle("Personal Scores");
+		stage3.setTitle(personalScores.getText());
 				
 		stage3.show();
 	}

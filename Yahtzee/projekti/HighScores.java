@@ -43,7 +43,7 @@ public class HighScores
 
 		insidePane.getChildren().addAll(imageView,highScores2,label2);
 
-	 	player = I18N.getTblColumn("label15");
+	 	player = I18N.getTblColumn("label18");
 		score = I18N.getTblColumn("label4");
 
 		player.setCellValueFactory(new PropertyValueFactory("player"));
