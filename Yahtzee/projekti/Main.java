@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import utils.DBConnection;
+import utils.I18N;
 import javafx.scene.Scene;
 
 public class Main extends Application {
@@ -24,7 +25,7 @@ public class Main extends Application {
 		});
 		Index index = new Index();
 		indexScene = new Scene(index.getIndex(), 400, 400);
-		window.setTitle("Welcome");
+		window.setTitle(I18N.getLabel("label8").getText());
 		window.setScene(indexScene);
 		window.show();
 	}
