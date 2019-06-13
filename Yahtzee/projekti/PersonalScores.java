@@ -18,6 +18,14 @@ public class PersonalScores
 	private int totalScore, ones, twos, threes, fours, fives, sixes, noOfGames;
 	private Label player = I18N.getLabel("label15");
 	private Label fullNameTxt = new Label(player.getText() + fullName);
+	private Label totalScoreLbl = new Label(Integer.toString(totalScore));
+	private Label onesLbl = new Label(Integer.toString(ones));
+	private Label twosLbl = new Label(Integer.toString(twos));
+	private Label threesLbl = new Label(Integer.toString(threes));
+	private Label foursLbl = new Label(Integer.toString(fours));
+	private Label fivesLbl = new Label(Integer.toString(fives));
+	private Label sixesLbl = new Label(Integer.toString(sixes));
+	private Label noOfGamesLbl = new Label(Integer.toString(noOfGames));
 	private Label totalScoreTxt = I18N.getLabel("label20"); 
 	private Label onesTxt = I18N.getLabel("label21");
 	private Label twosTxt = I18N.getLabel("label22");
@@ -46,14 +54,14 @@ public class PersonalScores
 			fives = result.getInt("fives");
 			sixes = result.getInt("sixes");
 			noOfGames = result.getInt("noOfGames");
-			totalScoreTxt.setText(totalScoreTxt.getText() + String.valueOf(totalScore));
-			onesTxt.setText(onesTxt.getText() + String.valueOf(ones));
-			twosTxt.setText(twosTxt.getText()  + String.valueOf(twos));
-			threesTxt.setText(threesTxt.getText()  + String.valueOf(threes));
-			foursTxt.setText(foursTxt.getText()  + String.valueOf(fours));
-			fivesTxt.setText(fivesTxt.getText()  + String.valueOf(fives));
-			sixesTxt.setText(sixesTxt.getText()  + String.valueOf(sixes));
-			noOfGamesTxt.setText(noOfGamesTxt.getText() + String.valueOf(noOfGames));
+			totalScoreLbl.setText(totalScoreTxt.getText() + String.valueOf(totalScore));
+			onesLbl.setText(onesTxt.getText() + String.valueOf(ones));
+			twosLbl.setText(twosTxt.getText()  + String.valueOf(twos));
+			threesLbl.setText(threesTxt.getText()  + String.valueOf(threes));
+			foursLbl.setText(foursTxt.getText()  + String.valueOf(fours));
+			fivesLbl.setText(fivesTxt.getText()  + String.valueOf(fives));
+			sixesLbl.setText(sixesTxt.getText()  + String.valueOf(sixes));
+			noOfGamesLbl.setText(noOfGamesTxt.getText() + String.valueOf(noOfGames));
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
@@ -62,7 +70,7 @@ public class PersonalScores
 		BorderPane pane = new BorderPane();
 		StatusBar statusBar = new StatusBar();
 		VBox vbox = new VBox(10);
-		vbox.getChildren().addAll(fullNameTxt, totalScoreTxt, onesTxt, twosTxt, threesTxt, foursTxt, fivesTxt, sixesTxt, noOfGamesTxt);
+		vbox.getChildren().addAll(fullNameTxt, totalScoreLbl, onesLbl, twosLbl, threesLbl, foursLbl, fivesLbl, sixesLbl, noOfGamesLbl);
 		vbox.setAlignment(Pos.CENTER);
 		Stage stage3 = new Stage();  
 		
