@@ -77,7 +77,7 @@ public class SignUpForm extends GridPane {
 		pane.add(passwordTextField, 1, 4);
 		pane.add(errorLabel, 0, 6, 3, 3);
 
-		Button signUpBtn = new Button("Sign Up");
+		Button signUpBtn = new Button(I18N.getLabel("Button4").getText());
 		signUpBtn.setStyle("-fx-text-fill: black; " + "-fx-font-family:'Arial'; "
 				+ "-fx-background-color: linear-gradient(lightblue, pink); "
 				+ "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
