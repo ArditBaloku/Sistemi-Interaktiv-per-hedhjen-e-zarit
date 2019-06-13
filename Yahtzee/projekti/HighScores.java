@@ -27,8 +27,8 @@ public class HighScores
 	private TableView table = new TableView();
 	public void getStage2()
 	{
-		highScores = I18N.getLabel("label16	");
-		highScores2 = I18N.getLabel("label17	");
+		highScores = I18N.getLabel("label16");
+		highScores2 = I18N.getLabel("label17");
 		Stage Stage2 = new Stage();
 		BorderPane pane = new BorderPane();
 		VBox insidePane = new VBox(20);
@@ -46,9 +46,9 @@ public class HighScores
 	 	player = I18N.getTblColumn("label15");
 		score = I18N.getTblColumn("label4");
 
-		palyer.setCellValueFactory(new PropertyValueFactory("player"));
+		player.setCellValueFactory(new PropertyValueFactory("player"));
 		score.setCellValueFactory(new PropertyValueFactory("score"));
-		palyer.setPrefWidth(300);
+		player.setPrefWidth(300);
 		score.setPrefWidth(300);
 
 		table.getColumns().addAll(player, score);
@@ -66,7 +66,7 @@ public class HighScores
 
 		Scene scene = new Scene(pane,800,400);
 
-		Stage2.setTitle(highScores);
+		Stage2.setTitle(highScores.getText());
 		Stage2.setScene(scene);
 		showScores();
 		Stage2.show();
