@@ -121,7 +121,6 @@ public class Game extends BorderPane
 			dice.setFace(roll);
 			face.setImage(dice.getFace());
 			rolls++;
-//			scoreLabel2 = I18N.getLabel("label6");
 			scoreLabel3.setText(scoreLabel1.getText() + " " + Integer.toString(10 - rolls) + " " + scoreLabel5.getText());
 			scoreLabel3.setVisible(true);
 			roundsLabel1.setVisible(false);

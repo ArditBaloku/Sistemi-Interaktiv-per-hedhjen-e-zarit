@@ -51,6 +51,9 @@ public class LogInForm extends GridPane {
 		pane.setStyle("-fx-background-color:linear-gradient(pink, lightblue); ");
 
 		Button backBtn = new Button("<-");
+		backBtn.setStyle("-fx-text-fill: black; " + "-fx-font-family:'Arial'; "
+				+ "-fx-background-color: linear-gradient(lightblue, pink); "
+				+ "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
 		backBtn.setOnAction(e -> {
 			cleanForm();
 			(Main.window).setScene(Main.indexScene);
@@ -58,7 +61,7 @@ public class LogInForm extends GridPane {
 		Text formName = I18N.getText("text1");
 		formName.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.ITALIC, 20));
 
-		HBox title = new HBox(100);
+		HBox title = new HBox(120);
 		title.getChildren().addAll(formName, backBtn);
 
 		pane.add(title, 0, 0, 2, 1);
