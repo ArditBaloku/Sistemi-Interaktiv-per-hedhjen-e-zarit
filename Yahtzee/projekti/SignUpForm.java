@@ -29,7 +29,6 @@ public class SignUpForm extends GridPane {
 	private Label email;
 	private Label password;
 	private Text formName;
-	
 	public static TextField firstNameTextField = new TextField();
 	public static TextField lastNameTextField = new TextField();
 	public static TextField emailTextField = new TextField();
@@ -128,22 +127,22 @@ public class SignUpForm extends GridPane {
 			if(checkEmail(emailTextField.getText())) {
 				addUser(firstNameTextField.getText(), lastNameTextField.getText(), emailTextField.getText(), passwordTextField.getText());
 				errorLabel.setStyle("-fx-text-fill: red");
-				errorLabel.setText("Account created successfully!\n Go to log in section and start playing!");
+				errorLabel.setText(I18N.getLabel("TextField7").getText() + "/n" + I18N.getLabel("TextField8").getText());
 			} else {
 				errorLabel.setStyle("-fx-text-fill: red");
-				errorLabel.setText("This email is already in use");
+				errorLabel.setText(I18N.getLabel("TextField6").getText());
 			}
 		}
 		else
 		{
-			FormValidation.textFieldNotEmpty(SignUpForm.firstNameTextField, "Write Your Name!");
-			FormValidation.textFieldNotEmpty(SignUpForm.lastNameTextField, "Write Your Surname!");
-			FormValidation.emailValidate(SignUpForm.emailTextField, "Write Your Email Address !");
+			FormValidation.textFieldNotEmpty(SignUpForm.firstNameTextField, I18N.getLabel("TextField2").getText());
+			FormValidation.textFieldNotEmpty(SignUpForm.lastNameTextField, I18N.getLabel("TextField3").getText());
+			FormValidation.emailValidate(SignUpForm.emailTextField, I18N.getLabel("TextField4").getText());
 		}
 	}
 	public static boolean valid()
 	{
-		return FormValidation.emailValidate(SignUpForm.emailTextField,"Invalid Email Address!") && FormValidation.textFieldNotEmpty(SignUpForm.firstNameTextField) && FormValidation.textFieldNotEmpty(SignUpForm.lastNameTextField) && FormValidation.textFieldNotEmpty(SignUpForm.passwordTextField);
+		return FormValidation.emailValidate(SignUpForm.emailTextField,I18N.getLabel("TextField5").getText()) && FormValidation.textFieldNotEmpty(SignUpForm.firstNameTextField) && FormValidation.textFieldNotEmpty(SignUpForm.lastNameTextField) && FormValidation.textFieldNotEmpty(SignUpForm.passwordTextField);
 	}
 	public static boolean addUser(String firstName, String lastName, String email, String password) {
 		try 
