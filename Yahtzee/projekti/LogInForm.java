@@ -51,7 +51,7 @@ public class LogInForm extends GridPane {
 		pane.setVgap(10);
 		pane.setStyle("-fx-background-color:linear-gradient(pink, lightblue); ");
 
-		Button backBtn = new Button("<-");
+		Button backBtn = new Button("←");
 		backBtn.setStyle("-fx-text-fill: black; " + "-fx-font-family:'Arial'; "
 				+ "-fx-background-color: linear-gradient(lightblue, pink); "
 				+ "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");

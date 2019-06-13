@@ -52,7 +52,7 @@ public class SignUpForm extends GridPane {
 		pane.setVgap(10);
 		pane.setStyle("-fx-background-color:linear-gradient(pink, lightblue); ");
 
-		Button backBtn = new Button("<-");
+		Button backBtn = new Button("←");
 		backBtn.setOnAction(e -> {
 			cleanForm();
 			(Main.window).setScene(Main.indexScene);
