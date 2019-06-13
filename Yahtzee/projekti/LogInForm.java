@@ -55,7 +55,7 @@ public class LogInForm extends GridPane {
 			cleanForm();
 			(Main.window).setScene(Main.indexScene);
 		});
-		Text formName = new Text("Log In");
+		Text formName = I18N.getText("text1");
 		formName.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.ITALIC, 20));
 
 		HBox title = new HBox(100);
@@ -68,7 +68,7 @@ public class LogInForm extends GridPane {
 		pane.add(passwordTxt, 1, 2);
 		pane.add(resultLabel,0,4,2,1);
 
-		Button logInBtn = new Button("Log In");
+		Button logInBtn = I18N.getButton("Button3");
 		logInBtn.setStyle("-fx-text-fill: black; " + "-fx-font-family:'Arial'; "
 				+ "-fx-background-color: linear-gradient(lightblue, pink); "
 				+ "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");

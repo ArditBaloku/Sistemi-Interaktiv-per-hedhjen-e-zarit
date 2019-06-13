@@ -17,6 +17,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import utils.DBConnection;
 import utils.Session;
@@ -40,9 +41,10 @@ public class Game extends BorderPane
 	private Label roundsLabel1;
 	private Label roundsLabel2;
 	private Button signout;
-	private Label scoreLabel1;
+	private Label scoreLabel1 = I18N.getLabel("label5");
+	private Label scoreLabel5 = I18N.getLabel("label6");
 	private Label scoreLabel2;
-	private Label scoreLabel3;
+	private Label scoreLabel3 = new Label("");
 	private Label scoreLabel4;
 
 	public BorderPane getGameView()
@@ -90,33 +92,30 @@ public class Game extends BorderPane
 		
 		Label scoreLabel = new Label();
 		roundsLabel1 = I18N.getLabel("label3");
+		roundsLabel2 = I18N.getLabel("label7");
+		roundsLabel2.setVisible(false);
 		rollDice.setOnAction(e -> {
+			roundsLabel2.setVisible(false);
 			int roll = dice.roll();
 			score += roll;
 			stats[roll-1]++;
 			dice.setFace(roll);
 			face.setImage(dice.getFace());
 			rolls++;
-			scoreLabel1 = I18N.getLabel("label5");
-			scoreLabel2 = I18N.getLabel("label6");
-			scoreLabel3 = I18N.getLabel("label7");
-			scoreLabel4 = I18N.getLabel("label8");
-			roundsLabel2 = I18N.getLabel("label9");
+//			scoreLabel2 = I18N.getLabel("label6");
+			scoreLabel3.setText(scoreLabel1.getText() + " " + Integer.toString(10 - rolls) + " " + scoreLabel5.getText());
+			scoreLabel3.setVisible(true);
+			roundsLabel1.setVisible(false);
 			scoreLabel.setText(Integer.toString(score));
-			roundsLabel1.setText(scoreLabel1.getText() + (10 - rolls) + scoreLabel2.getText());
 			if (rolls == 10) {
-				if (insertScore(Session.getId(), score, stats)) {
-					System.out.println(scoreLabel3);
-				} else {
-					System.out.println(scoreLabel4);
-				};
-				// insert statistics into database
+				insertScore(Session.getId(), score, stats);
 				rolls = 0;
 				score = 0;
 				for (int i = 0; i < stats.length; i++) {
 					stats[i] = 0;
 				}
-				roundsLabel1.setText(roundsLabel2.getText());
+				roundsLabel2.setVisible(true);
+				scoreLabel3.setVisible(false);
 			}
 			
 		});
@@ -131,10 +130,13 @@ public class Game extends BorderPane
 		hbox.setAlignment(Pos.TOP_RIGHT);
 		hbox.getChildren().add(signout);
 		
+		StackPane labels = new StackPane();
+		labels.getChildren().addAll(roundsLabel1, roundsLabel2, scoreLabel3);
+		
 		VBox vbox = new VBox(10);
 		vbox.setPadding(new Insets(20,20,20,20));
 		vbox.setAlignment(Pos.CENTER);
-		vbox.getChildren().addAll(roundsLabel1, scoreLabel, rollDice);
+		vbox.getChildren().addAll(labels, scoreLabel, rollDice);
 		
 		BorderPane box = new BorderPane();	
 		
