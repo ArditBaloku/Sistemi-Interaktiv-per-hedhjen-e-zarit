@@ -1,4 +1,4 @@
-package projekti;
+package utils;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -16,6 +16,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.text.Text;
+import projekti.Scores;
 
 public class I18N {
 

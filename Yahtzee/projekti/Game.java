@@ -21,6 +21,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import utils.DBConnection;
+import utils.Help;
+import utils.I18N;
 import utils.Session;
 
 public class Game extends BorderPane

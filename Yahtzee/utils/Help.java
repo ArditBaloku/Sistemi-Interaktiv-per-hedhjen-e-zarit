@@ -1,4 +1,4 @@
-package projekti;
+package utils;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -29,8 +29,6 @@ public class Help {
 		} else {
 			url = Help.class.getResource("enhelp.html").toExternalForm();
 		}
-
-		System.out.println("Local URL: " + url);
 
 		webEngine.load(url);
 

@@ -10,6 +10,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.DBConnection;
+import utils.I18N;
 import utils.Session;
 
 public class PersonalScores 

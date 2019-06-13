@@ -21,6 +21,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import utils.BCrypt;
 import utils.DBConnection;
+import utils.I18N;
 import utils.Session;
 
 public class LogInForm extends GridPane {

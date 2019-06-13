@@ -3,6 +3,7 @@ package projekti;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import utils.I18N;
 import utils.Session;
 
 public class StatusBar extends HBox
