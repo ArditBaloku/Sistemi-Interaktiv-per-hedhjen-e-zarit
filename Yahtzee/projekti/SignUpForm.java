@@ -57,11 +57,13 @@ public class SignUpForm extends GridPane {
 			cleanForm();
 			(Main.window).setScene(Main.indexScene);
 		});
-
+		backBtn.setStyle("-fx-text-fill: black; " + "-fx-font-family:'Arial'; "
+				+ "-fx-background-color: linear-gradient(lightblue, pink); "
+				+ "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
 		formName = I18N.getText("text2");
 		formName.setFont(Font.font("Arial", FontWeight.BOLD, FontPosture.ITALIC, 20));
 
-		HBox title = new HBox(100);
+		HBox title = new HBox(120);
 		title.getChildren().addAll(formName, backBtn);
 
 		pane.add(title, 0, 0, 2, 1);
